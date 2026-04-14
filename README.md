@@ -1,89 +1,94 @@
 <div align="center">
 
-<svg width="100%" height="150" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @keyframes neon-glow {
-      0%, 100% { fill: #ff0050; text-shadow: 0 0 10px #ff0050, 0 0 20px #ff0050; }
-      50% { fill: #00f2ea; text-shadow: 0 0 10px #00f2ea, 0 0 20px #00f2ea; }
-    }
-    .neon-text {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      font-weight: 900;
-      font-size: 70px;
-      text-transform: uppercase;
-      animation: neon-glow 3s infinite;
-      text-anchor: middle;
-      dominant-baseline: middle;
-    }
-  </style>
+<svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="neonBlur">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
+    <linearGradient id="wizzyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff0050;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#00f2ea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff0050;stop-opacity:1" />
+    </linearGradient>
   </defs>
-  <text x="50%" y="50%" class="neon-text" filter="url(#neonBlur)">WIZZY SOVEREIGN</text>
+  <rect width="600" height="150" fill="transparent" />
+  <text x="50%" y="50%" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="65" font-weight="900" fill="url(#wizzyGradient)" text-anchor="middle" dominant-baseline="middle" style="filter: drop-shadow(0px 0px 10px rgba(0,242,234,0.5));">
+    WIZZY TIKTOK
+  </text>
+  <text x="50%" y="85%" font-family="Arial" font-size="14" font-weight="bold" fill="#555" text-anchor="middle" letter-spacing="10">SOVEREIGN ELITE V50.0</text>
 </svg>
 
-### 👑 【 المخطوطة الأسطورية لمنصة التحميل العالمية 】 👑
-**"حيث تنتهي حدود التقنية، تبدأ سيادة ويزي"**
+### 🔱 【 دستور الإمبراطورية الرقمية لتحميل المحتوى 】 🔱
+**"القوة، السرعة، والسيادة المطلقة في يد إمبراطور واحد"**
 
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/VERSION-50.0--ULTIMATE-ff0050?style=for-the-badge&logo=probot" />
-  <img src="https://img.shields.io/badge/SECURITY-SOVEREIGN--GUARD-00f2ea?style=for-the-badge&logo=google-cloud" />
-  <img src="https://img.shields.io/badge/ENGINE-FLASK--ELITE-white?style=for-the-badge&logo=flask" />
+  <img src="https://img.shields.io/badge/DEVELOPER-WIZZY--DV-ff0050?style=for-the-badge&logo=probot" />
+  <img src="https://img.shields.io/badge/PLATFORM-TIKTOK--SOVEREIGN-00f2ea?style=for-the-badge&logo=tiktok" />
+  <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-white?style=for-the-badge&logo=render" />
 </p>
 
 ---
 
 </div>
 
-## 🌌 رؤية الإمبراطورية (The Vision)
-هذا المشروع ليس مجرد أداة لتحميل الفيديوهات؛ إنه **بيان تقني** يثبت أن السيادة الرقمية يمكن بناؤها بأيدي إمبراطور واحد. تم تصميم **Wizzy Sovereign TikTok Downloader** ليكون الأسرع، الأجمل، والأكثر أماناً في الفضاء السيادي، مع واجهة مستخدم مستوحاة من عوالم الـ **Cyberpunk** المتوهجة.
+## 🌌 جوهر المنصة (The Essence)
+مشروع **Wizzy Sovereign** هو القمة التكنولوجية في استخراج وتحميل محتوى TikTok. تم بناء هذا النظام ليتخطى كل القيود التقليدية، ويوفر للمستخدمين تجربة سينمائية فريدة من نوعها، مع دمج أرقى معايير الحماية العالمية.
 
 ---
 
-## 🚀 الميزات الخارقة (God-Tier Features)
+## 🚀 القدرات الأسطورية (Legendary Capabilities)
 
-### ⚡ محرك الاستخراج النفاذ
-تم تزويد المنصة بـ **Proxy Server** متطور يقوم بجلب البيانات من سيرفرات TikTok العالمية وإعادة ضخها للمستخدم مباشرة. هذا النظام يضمن:
-- **تخطي المشغل الافتراضي:** الفيديو ينزل فوراً في "معرض الصور" دون المرور بالشاشة السوداء.
-- **ثبات الروابط:** روابط ذكية لا تنتهي صلاحيتها أثناء التحميل.
+### 🛠️ محرك الاستخراج النفاذ (The Engine)
+* **Forced Download Proxy:** نظام وسيط ذكي يجبر المتصفح على بدء التحميل فوراً، متخطياً "المشغلات المزعجة".
+* **Multi-Format Logic:** استخراج الفيديو بجودتي HD و SD، مع إمكانية عزل الصوت وتحميله كملف MP3 نقي.
+* **Smart Link Filter:** نظام ذكاء اصطناعي داخلي يرفض أي روابط غريبة ويقبل فقط "روابط الإبداع" من تيك توك.
 
-### 🛡️ نظام الحماية (Sovereign Guard V2)
-لقد قمنا باستبدال أنظمة التحقق التقليدية بنظام **Verify-Logic** عالمي:
-- **تحقق بشري حقيقي:** مربع فحص سيادي يحاكي أنظمة Cloudflare.
-- **حماية Backend:** السيرفر لا يستجيب لأي طلب مجهول ما لم يتم توثيقه عبر واجهة المستخدم الرسمية.
+### 🛡️ درع السيادة (The Shield)
+* **Global Verify Guard:** نظام تحقق بشري يحاكي الأنظمة العالمية، يضمن أن المنصة متاحة فقط لـ "الملوك البشر" وليس للبوتات.
+* **Iron Backend:** معالجة البيانات تتم في طبقة مشفرة تضمن خصوصية وسرعة الطلب.
 
-### 🎨 الجمالية السينمائية
-- **Border-Beam Effect:** شريط ضوئي يدور حول البطاقة الرئيسية يمثل تدفق البيانات السيادية.
-- **Mesh Gradients:** خلفية حية تتفاعل ببطء لتوفير راحة بصرية وهيبة تقنية.
-- **Download Alerts:** إشعارات "Toast" فورية تظهر عند بدء التحميل لتأكيد الاستجابة.
+### 🎨 الجمالية الرقمية (The Aesthetics)
+* **Cyber-Neon UI:** واجهة مستوحاة من المستقبل، تدمج بين الـ Glassmorphism وألوان تيك توك المتوهجة.
+* **Real-Time Feedback:** إشعارات فورية وتنبيهات تخبر المستخدم بكل خطوة (من التحقق وحتى اكتمال التحميل).
 
 ---
 
-## 🛠️ البنية التحتية (Architecture)
-
-| الطبقة | التقنية المستخدمة | الدور السيادي |
-| :--- | :--- | :--- |
-| **المحرك (Core)** | `Python / Flask` | معالجة الطلبات وإدارة التشفير |
-| **الواجهة (Shell)** | `Tailwind CSS / Animate.css` | الزخرفة السينمائية وتجربة المستخدم |
-| **الحماية (Shield)** | `Session Logic / CSRF` | منع البوتات والطلبات الوهمية |
-| **التوزيع (Host)** | `Render Global Edge` | ضمان بقاء المنصة Live 24/7 |
+## 📁 هيكلة الأركان السيادية
+المشروع مقسم هندسياً لضمان أعلى أداء:
+* `🧠 app.py`: عقل المنصة (Backend).
+* `📁 templates/`: الديوان الملكي (Frontend).
+* `📄 requirements.txt`: قائمة العتاد البرمجي.
+* `📄 runtime.txt`: تعريف بيئة التشغيل.
 
 ---
 
-## 📂 هيكلة الملفات الملكية
-مشروع الإمبراطورية مقسم بعناية هندسية فائقة:
-```text
-🔱 WIZZY-EMPIRE/
-├── 🧠 app.py              # مخ الإمبراطورية (المحرك الرئيسي)
-├── 📦 requirements.txt     # كتالوج المكتبات السيادية
-├── 📄 runtime.txt          # نسخة لغة بايثون المعتمدة
-└── 📁 templates/           # الديوان الملكي (واجهة المستخدم)
-    └── 🎨 index.html       # اللوحة الفنية المتوهجة
+## 🛰️ إطلاق الإمبراطورية (Quick Start)
+لو عايز ترفع المكنة دي على سيرفرات **Render**:
+1. ارفع ملفاتك لـ GitHub.
+2. في Render، استخدم الأوامر التالية:
+   * **Build:** `pip install -r requirements.txt`
+   * **Start:** `gunicorn app:app`
+
+---
+
+<div align="center">
+
+### 👑 المطور الرسمي
+**محمد عادل (Wizzy Sovereign)**
+*خبير أنظمة، مصمم واجهات، ومؤسس إمبراطورية "ويزي" التقنية*
+
+<p align="center">
+  <a href="https://t.me/wizzy_dv_sd">
+    <img src="https://img.shields.io/badge/Connect-Telegram-blue?style=for-the-badge&logo=telegram" />
+  </a>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%">
+</p>
+
+**"السيادة هي أن تملك التكنولوجيا التي يحتاجها الجميع."**
+**© 2026 WIZZY SOVEREIGN | الإصدار الأسطوري النهائي**
+
+</div>
