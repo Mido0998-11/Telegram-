@@ -1,51 +1,51 @@
 from flask import Flask, render_template, request, jsonify, Response, session, redirect, url_for
 import requests
-from datetime import timedelta
+import os
 
 app = Flask(__name__)
+# سكرت كي ثابت وقوي لضمان استقرار الجلسة
+app.secret_key = os.urandom(24) 
 
-# 🔱 إعدادات السيادة (الإصدار العابر للحدود)
-app.secret_key = "WIZZY_EMPIRE_ULTIMATE_KEY_2026" 
-app.permanent_session_lifetime = timedelta(days=30) # التذكرة تدوم شهر كامل
-
-# إعدادات الكوكيز (تم التعديل لضمان القبول في الموبايل)
+# إعدادات الكوكيز لتعمل في كل الظروف
 app.config.update(
-    SESSION_COOKIE_SECURE=False,   # غيرناها لـ False عشان تشتغل في كل الحالات
+    SESSION_COOKIE_NAME='wizzy_session',
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
+    PERMANENT_SESSION_LIFETIME=3600 # ساعة واحدة تكفي
 )
 
 API_URL = "https://tikwm.com/api/"
 HEADERS = {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
     "Cookie": "current_language=en",
-    "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
 }
 
 @app.route('/')
-def verify_gate():
-    # لو اليوزر محقق، ندخله طوالي
-    if session.get('is_verified') == True:
+def gate():
+    if session.get('is_verified'):
         return redirect(url_for('downloader_page'))
     return render_template('verify.html')
 
 @app.route('/api/verify_success', methods=['POST'])
 def verify_success():
-    session.permanent = True # تثبيت الجلسة
     session['is_verified'] = True
     return jsonify({"success": True})
 
 @app.route('/downloader')
 def downloader_page():
     if not session.get('is_verified'):
-        return redirect(url_for('verify_gate'))
+        return redirect(url_for('gate'))
     return render_template('index.html')
+
+@app.route('/search')
+def search_page():
+    if not session.get('is_verified'):
+        return redirect(url_for('gate'))
+    return render_template('search.html')
 
 @app.route('/api/download', methods=['POST'])
 def api_download():
-    if not session.get('is_verified'):
-        return jsonify({"success": False, "message": "انتهت الجلسة 🚫"}), 403
-    
     video_url = request.json.get('url', '').strip()
     try:
         res = requests.post(API_URL, data={"url": video_url, "hd": "1"}, headers=HEADERS).json()
@@ -53,7 +53,19 @@ def api_download():
             return jsonify({"success": True, "data": res['data']})
         return jsonify({"success": False, "message": "الفيديو غير موجود"})
     except:
-        return jsonify({"success": False, "message": "عطل فني 🛠️"})
+        return jsonify({"success": False, "message": "عطل في السيرفر العالمي"})
+
+@app.route('/api/search', methods=['POST'])
+def api_search():
+    query = request.json.get('query', '').strip()
+    try:
+        search_api = "https://tikwm.com/api/feed/search"
+        res = requests.post(search_api, data={"keywords": query, "count": 12}, headers=HEADERS).json()
+        if res.get('code') == 0:
+            return jsonify({"success": True, "videos": res['data']['videos']})
+        return jsonify({"success": False})
+    except:
+        return jsonify({"success": False})
 
 @app.route('/proxy_download')
 def proxy_download():
