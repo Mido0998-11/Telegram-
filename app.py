@@ -3,58 +3,62 @@ import requests
 from datetime import timedelta
 
 app = Flask(__name__)
+app.secret_key = "WIZZY_SOVEREIGN_MULTI_PAGE_2026"
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+app.config.update(SESSION_COOKIE_SECURE=True, SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE='Lax')
 
-# 🔱 إعدادات السيادة والأمان
-app.secret_key = "WIZZY_SOVEREIGN_ULTIMATE_KEY_2026" # خلي السكرت كي ثابت وموحد
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) # التذكرة تدوم أسبوع
-app.config.update(
-    SESSION_COOKIE_SECURE=True,    # ضروري للعمل على https
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax', # عشان الكوكيز ما تتحظر
-)
-
+# إعدادات المحرك (The Code Breaker Settings)
 API_URL = "https://tikwm.com/api/"
+SEARCH_URL = "https://tikwm.com/api/feed/search"
 HEADERS = {
     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
     "Cookie": "current_language=en",
     "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
 }
 
+# --- المسارات (Routes) ---
+
+# 1. البوابة (التفتيش)
 @app.route('/')
-def verify_gate():
-    # لو اليوزر محقق أصلاً، ندخله طوالي للمنصة
-    if session.get('is_verified'):
-        return redirect(url_for('downloader'))
+def gate():
+    if session.get('is_verified'): return redirect(url_for('downloader_page'))
     return render_template('verify.html')
 
 @app.route('/api/verify_success', methods=['POST'])
 def verify_success():
-    session.permanent = True # جعل الجلسة دائمة
+    session.permanent = True
     session['is_verified'] = True
     return jsonify({"success": True})
 
+# 2. صفحة التحميل
 @app.route('/downloader')
-def downloader():
-    # التأكد الصارم من وجود التذكرة
-    if not session.get('is_verified'):
-        return redirect(url_for('verify_gate'))
+def downloader_page():
+    if not session.get('is_verified'): return redirect(url_for('gate'))
     return render_template('index.html')
 
-@app.route('/api/download', methods=['POST'])
-def download():
-    if not session.get('is_verified'):
-        return jsonify({"success": False, "message": "انتهت صلاحية الجلسة، أعد التحقق 🚫"}), 403
+# 3. صفحة البحث
+@app.route('/search')
+def search_page():
+    if not session.get('is_verified'): return redirect(url_for('gate'))
+    return render_template('search.html')
 
+# --- محركات البيانات (APIs) ---
+
+@app.route('/api/download', methods=['POST'])
+def api_download():
     video_url = request.json.get('url', '').strip()
     try:
-        payload = {"url": video_url, "hd": "1"}
-        response = requests.post(API_URL, data=payload, headers=HEADERS, timeout=20)
-        res = response.json()
-        if res.get('code') == 0:
-            return jsonify({"success": True, "data": res['data']})
-        return jsonify({"success": False, "message": "السيرفر العالمي لم يجد الفيديو."})
-    except:
-        return jsonify({"success": False, "message": "عطل فني في الجلب 🛠️"})
+        res = requests.post(API_URL, data={"url": video_url, "hd": "1"}, headers=HEADERS).json()
+        return jsonify({"success": True, "data": res['data']}) if res.get('code') == 0 else jsonify({"success": False})
+    except: return jsonify({"success": False})
+
+@app.route('/api/search', methods=['POST'])
+def api_search():
+    query = request.json.get('query', '').strip()
+    try:
+        res = requests.post(SEARCH_URL, data={"keywords": query, "count": 15}, headers=HEADERS).json()
+        return jsonify({"success": True, "videos": res['data']['videos']}) if res.get('code') == 0 else jsonify({"success": False})
+    except: return jsonify({"success": False})
 
 @app.route('/proxy_download')
 def proxy_download():
