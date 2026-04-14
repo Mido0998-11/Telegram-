@@ -2,85 +2,104 @@
 
 <svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="wizzyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#ff0050;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#00f2ea;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#ff0050;stop-opacity:1" />
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <linearGradient id="sovereignGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff0050;">
+        <animate attributeName="stop-color" values="#ff0050;#00f2ea;#ff0050" dur="3s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" style="stop-color:#00f2ea;">
+        <animate attributeName="stop-color" values="#00f2ea;#ff0050;#00f2ea" dur="3s" repeatCount="indefinite" />
+      </stop>
     </linearGradient>
   </defs>
-  <rect width="600" height="150" fill="transparent" />
-  <text x="50%" y="50%" font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="65" font-weight="900" fill="url(#wizzyGradient)" text-anchor="middle" dominant-baseline="middle" style="filter: drop-shadow(0px 0px 10px rgba(0,242,234,0.5));">
+
+  <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="60" font-weight="950" 
+        fill="url(#sovereignGradient)" text-anchor="middle" dominant-baseline="middle" 
+        filter="url(#neonGlow)" style="letter-spacing: 5px;">
     WIZZY TIKTOK
+    <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
   </text>
-  <text x="50%" y="85%" font-family="Arial" font-size="14" font-weight="bold" fill="#555" text-anchor="middle" letter-spacing="10">SOVEREIGN ELITE V50.0</text>
+  
+  <text x="50%" y="90%" font-family="Verdana" font-size="12" font-weight="bold" fill="#444" text-anchor="middle" letter-spacing="12">
+    GOD-TIER SOVEREIGN ENGINE
+    <animate attributeName="fill" values="#444;#00f2ea;#444" dur="4s" repeatCount="indefinite" />
+  </text>
 </svg>
 
-### 🔱 【 دستور الإمبراطورية الرقمية لتحميل المحتوى 】 🔱
-**"القوة، السرعة، والسيادة المطلقة في يد إمبراطور واحد"**
+### 👑 【 ميثاق إمبراطورية ويزي لتحميل المحتوى العالمي 】 👑
+**"التقنية التي لا تبهر العين، ليست تقنية سيادية"**
 
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/DEVELOPER-WIZZY--DV-ff0050?style=for-the-badge&logo=probot" />
-  <img src="https://img.shields.io/badge/PLATFORM-TIKTOK--SOVEREIGN-00f2ea?style=for-the-badge&logo=tiktok" />
-  <img src="https://img.shields.io/badge/STATUS-OPERATIONAL-white?style=for-the-badge&logo=render" />
+  <img src="https://img.shields.io/badge/System-Sovereign--V60-ff0050?style=for-the-badge&logo=probot" />
+  <img src="https://img.shields.io/badge/Status-Legendary-00f2ea?style=for-the-badge&logo=render" />
+  <img src="https://img.shields.io/badge/Security-Fortress-white?style=for-the-badge&logo=google-cloud" />
 </p>
 
 ---
 
 </div>
 
-## 🌌 جوهر المنصة (The Essence)
-مشروع **Wizzy Sovereign** هو القمة التكنولوجية في استخراج وتحميل محتوى TikTok. تم بناء هذا النظام ليتخطى كل القيود التقليدية، ويوفر للمستخدمين تجربة سينمائية فريدة من نوعها، مع دمج أرقى معايير الحماية العالمية.
+## 🌌 فلسفة المشروع (The Sovereign Vision)
+هذه المنصة هي نتاج دمج **القوة البرمجية** مع **الفن الرقمي**. لم يتم بناء **Wizzy TikTok Downloader** ليكون مجرد أداة عابرة، بل ليكون واجهة لكل من يبحث عن التميز والسيادة. نحن هنا لنعيد تعريف معنى "التحميل المباشر" بأناقة لا مثيل لها وبسرعة تسبق الخيال.
 
 ---
 
-## 🚀 القدرات الأسطورية (Legendary Capabilities)
+## 🚀 الترسانة التقنية (Legendary Arsenal)
 
-### 🛠️ محرك الاستخراج النفاذ (The Engine)
-* **Forced Download Proxy:** نظام وسيط ذكي يجبر المتصفح على بدء التحميل فوراً، متخطياً "المشغلات المزعجة".
-* **Multi-Format Logic:** استخراج الفيديو بجودتي HD و SD، مع إمكانية عزل الصوت وتحميله كملف MP3 نقي.
-* **Smart Link Filter:** نظام ذكاء اصطناعي داخلي يرفض أي روابط غريبة ويقبل فقط "روابط الإبداع" من تيك توك.
+### ⚡ محرك الاستخراج النفاذ (Sovereign Proxy)
+هذا المحرك لا يكتفي بجلب الرابط، بل يقوم بعملية **"التطهير الرقمي"** للفيديو:
+- **تخطي العلامات المائية:** جلب النسخة الأصلية الخام من سيرفرات TikTok الأم.
+- **التحميل الإجباري:** كسر بروتوكولات المتصفح لإجبار الملف على النزول فوراً في جهازك.
+- **نقاء الصوت:** استخراج المسارات الصوتية بتردد **320kbps** لتجربة MP3 سينمائية.
 
-### 🛡️ درع السيادة (The Shield)
-* **Global Verify Guard:** نظام تحقق بشري يحاكي الأنظمة العالمية، يضمن أن المنصة متاحة فقط لـ "الملوك البشر" وليس للبوتات.
-* **Iron Backend:** معالجة البيانات تتم في طبقة مشفرة تضمن خصوصية وسرعة الطلب.
+### 🛡️ درع الحماية العالمي (Elite Verification)
+لقد قمنا بتطوير نظام **Verify-Guard** الذي يحاكي أنظمة Cloudflare:
+- **تحدي الذكاء البشري:** نظام لا يمكن للبوتات الوهمية تخطيه.
+- **تشفير الطلبات:** كل طلب تحميل مشفر بـ Token فريد يضمن أمان السيرفر واستمرارية الخدمة.
 
-### 🎨 الجمالية الرقمية (The Aesthetics)
-* **Cyber-Neon UI:** واجهة مستوحاة من المستقبل، تدمج بين الـ Glassmorphism وألوان تيك توك المتوهجة.
-* **Real-Time Feedback:** إشعارات فورية وتنبيهات تخبر المستخدم بكل خطوة (من التحقق وحتى اكتمال التحميل).
-
----
-
-## 📁 هيكلة الأركان السيادية
-المشروع مقسم هندسياً لضمان أعلى أداء:
-* `🧠 app.py`: عقل المنصة (Backend).
-* `📁 templates/`: الديوان الملكي (Frontend).
-* `📄 requirements.txt`: قائمة العتاد البرمجي.
-* `📄 runtime.txt`: تعريف بيئة التشغيل.
+### 🎨 الزخرفة السيادية (Cyber Aesthetics)
+- **Neon Glow API:** خطوط متوهجة تتفاعل مع حركة المستخدم.
+- **Dynamic Backgrounds:** خلفيات فلكية متحركة تضفي طابع "الفضاء التقني".
+- **Real-Time Toast:** نظام إشعارات ذكي يخبرك ببدء وانتهاء كل عملية سيادية.
 
 ---
 
-## 🛰️ إطلاق الإمبراطورية (Quick Start)
-لو عايز ترفع المكنة دي على سيرفرات **Render**:
-1. ارفع ملفاتك لـ GitHub.
-2. في Render، استخدم الأوامر التالية:
-   * **Build:** `pip install -r requirements.txt`
-   * **Start:** `gunicorn app:app`
+## 🏛️ البناء الهيكلي للمشروع
+تم تنظيم الملفات بمعايير هندسية عالمية لضمان سهولة التطوير المستقبلي:
+
+* **`🧠 app.py`**: النواة والقلب النابض (Backend Logic).
+* **`📁 templates/`**: قاعة العرش (UI / HTML Layout).
+* **`📄 requirements.txt`**: قائمة العتاد والمكتبات اللازمة للتشغيل.
+* **`📄 runtime.txt`**: مواصفات المحرك لضمان التوافق العالمي.
 
 ---
+
+## 🛰️ دليل إطلاق الإمبراطورية (Deployment)
+لتشغيل هذه المكنة الأسطورية على منصات الاستضافة العالمية:
+
+1. **ارفع الملفات:** تأكد من وجود ملف `README.md` المتوهج في الواجهة.
+2. **على منصة Render:**
+   - **Environment:** Python 3.10+
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `gunicorn app:app`
+
+---
+
+## 👑 قائد الأركان التقنية
+**محمد عادل (Wizzy Sovereign)**
+*المؤسس والمطور الرئيسي لكل ما هو أسطوري وسيادي*
 
 <div align="center">
-
-### 👑 المطور الرسمي
-**محمد عادل (Wizzy Sovereign)**
-*خبير أنظمة، مصمم واجهات، ومؤسس إمبراطورية "ويزي" التقنية*
-
-<p align="center">
   <a href="https://t.me/wizzy_dv_sd">
-    <img src="https://img.shields.io/badge/Connect-Telegram-blue?style=for-the-badge&logo=telegram" />
+    <img src="https://img.shields.io/badge/Connect-Telegram-blue?style=for-the-badge&logo=telegram&logoColor=white" />
   </a>
-</p>
+</div>
 
 ---
 
@@ -88,7 +107,7 @@
   <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%">
 </p>
 
-**"السيادة هي أن تملك التكنولوجيا التي يحتاجها الجميع."**
-**© 2026 WIZZY SOVEREIGN | الإصدار الأسطوري النهائي**
+**"السيادة هي أن تصنع ما يعجز الآخرون عن تقليده."**
+**© 2026 WIZZY SOVEREIGN | THE ETERNAL EDITION**
 
 </div>
