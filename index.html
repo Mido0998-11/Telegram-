@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizzy Unban System</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0e1621; color: white; text-align: center; padding: 40px 20px; margin: 0; }
+        .card { background: #17212b; border-radius: 20px; padding: 30px; border: 1px solid #2b5278; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 400px; margin: auto; }
+        h2 { color: #5288c1; margin-bottom: 5px; }
+        .phone { font-size: 26px; color: #00ff00; font-weight: bold; margin: 25px 0; letter-spacing: 2px; }
+        .btn { background: #2481cc; color: white; border: none; padding: 18px; border-radius: 12px; font-size: 20px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:active { transform: scale(0.95); background: #1c66a0; }
+        .footer { margin-top: 40px; font-size: 13px; color: #6c7883; }
+        .steps { text-align: right; font-size: 14px; color: #abb1b8; margin-top: 20px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>إمبراطورية ويزي 👑</h2>
+        <p>نظام فك حظر واتساب العالمي</p>
+        
+        <div id="phone-display" class="phone">جاري التحميل...</div>
+        
+        <button class="btn" onclick="sendEmail()">إرسال طلب فك الحظر ✅</button>
+        
+        <div class="steps">
+            • اضغط على الزر الأزرق فوق.<br>
+            • حيفتح ليك تطبيق الجيميل (Gmail).<br>
+            • اضغط على سهم الإرسال الأزرق وبس.
+        </div>
+    </div>
+    <div class="footer">المطور: Wizzy | @wizzy_dv_sd</div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // يخلي الموقع يفتح بملء الشاشة
+
+        // جلب الرقم من رابط الموقع (مثلاً ?phone=+249...)
+        const urlParams = new URLSearchParams(window.location.search);
+        const phone = urlParams.get('phone') || "رقم غير معروف";
+        document.getElementById('phone-display').innerText = phone;
+
+        function sendEmail() {
+            const email = "support@support.whatsapp.com";
+            const subject = "I am facing a problem after the latest update of WhatsApp";
+            const body = `Hello WhatsApp Support, 
+
+I am contacting you to report an issue I am facing after the latest WhatsApp update. When I try to log in to my WhatsApp account, I receive a message saying that login is currently unavailable for security reasons. We cannot allow you to log in at this time. I did not do anything unusual, nor did I receive any warnings or notifications about any security issues. 
+
+Please help resolve this issue and help me regain access to my account.
+
+My Phone Number: ${phone}`;
+
+            // تحويل المستخدم للجيميل مع الرسالة كاملة
+            const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+        }
+    </script>
+</body>
+</html>
