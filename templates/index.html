@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔱 Wizzy Sovereign | TikTok Elite Downloader</title>
+    <title>🔱 Wizzy Sovereign | TikTok Elite</title>
     
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" type="image/x-icon">
     
@@ -15,46 +15,44 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
         
-        :root {
-            --tiktok-cyan: #00f2ea;
-            --tiktok-pink: #ff0050;
-        }
+        :root { --tiktok-cyan: #00f2ea; --tiktok-pink: #ff0050; }
 
         body { background: #000; color: #fff; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
 
-        /* 1. الزخرفة الخلفية (Mesh Glow) */
         .bg-glow {
             position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 242, 234, 0.08) 0%, transparent 70%);
             filter: blur(100px); border-radius: 50%; z-index: -1; animation: move 20s infinite alternate;
         }
         @keyframes move { from { transform: translate(-10%, -10%); } to { transform: translate(20%, 20%); } }
 
-        /* 2. الـ Border-Beam (الشريط الضوئي الدوار) */
         .sovereign-card {
             position: relative; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(30px);
-            border-radius: 3rem; border: 1px solid rgba(255, 255, 255, 0.05); overflow: hidden;
+            border-radius: 3rem; border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
+        /* إصلاح مشكلة اللمس هنا: أضفت pointer-events: none */
         .sovereign-card::before {
             content: ''; position: absolute; inset: 0; padding: 2px; border-radius: 3rem;
             background: linear-gradient(90deg, transparent, var(--tiktok-cyan), var(--tiktok-pink), transparent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude; background-size: 200% auto; animation: beam 4s linear infinite;
+            pointer-events: none; /* هذا السطر هو الحل للسماح بالضغط */
         }
         @keyframes beam { to { background-position: 200% center; } }
 
-        /* 3. نظام التحقق العالمي (Sovereign Guard) */
         .verify-box {
-            border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.03);
             padding: 18px; border-radius: 20px; cursor: pointer; transition: 0.4s;
+            position: relative; z-index: 10; /* لضمان ظهورها فوق أي طبقة */
         }
-        .verify-box:hover { background: rgba(255,255,255,0.05); border-color: var(--tiktok-cyan); }
+        .verify-box:hover { background: rgba(255,255,255,0.08); border-color: var(--tiktok-cyan); }
+        
         .spinner { width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--tiktok-cyan); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* 4. الأزرار والحقوق الملونة */
         .btn-elite {
             background: linear-gradient(90deg, var(--tiktok-pink), var(--tiktok-cyan));
-            color: #000; font-weight: 900; transition: 0.4s;
+            color: #000; font-weight: 900; transition: 0.4s; position: relative; z-index: 10;
         }
         .btn-elite:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 242, 234, 0.5); }
 
@@ -78,7 +76,7 @@
                     WIZZY <span class="text-[var(--tiktok-pink)]">TIKTOK</span>
                 </h1>
             </div>
-            <p class="text-gray-500 font-bold text-xs tracking-[0.6em] uppercase">Sovereign God-Tier Engine V50.0</p>
+            <p class="text-gray-500 font-bold text-xs tracking-[0.5em] uppercase">Sovereign God-Tier Engine V50.0</p>
         </div>
 
         <div class="sovereign-card p-10 animate__animated animate__zoomIn shadow-2xl">
@@ -87,7 +85,7 @@
             </div>
 
             <input type="text" id="url" placeholder="ضع رابط الإبداع (TikTok) هنا..." 
-                   class="w-full p-6 rounded-3xl bg-white/5 border border-white/5 outline-none text-xl font-bold text-center mb-8 focus:border-[var(--tiktok-cyan)] transition-all placeholder-gray-700">
+                   class="w-full p-6 rounded-3xl bg-white/5 border border-white/5 outline-none text-xl font-bold text-center mb-8 focus:border-[var(--tiktok-cyan)] transition-all placeholder-gray-700 relative z-10">
             
             <div id="verify-box" class="verify-box flex items-center justify-between mb-8" onclick="executeVerify()">
                 <div class="flex items-center gap-4">
@@ -103,7 +101,7 @@
             </button>
         </div>
 
-        <div id="result" class="hidden sovereign-card p-8 mt-12 animate__animated animate__fadeInUp shadow-2xl mb-20">
+        <div id="result" class="hidden sovereign-card p-8 mt-12 animate__animated animate__fadeInUp shadow-2xl mb-20 relative z-10">
             <div class="relative rounded-[2rem] overflow-hidden mb-6 group">
                 <img id="cover" class="w-full h-80 object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black flex flex-col justify-end p-8">
@@ -127,16 +125,21 @@
         </div>
     </div>
 
-    <footer class="mt-auto py-12 text-center w-full glass border-t border-white/5">
-        <p class="legendary-glow text-[13px] tracking-[0.5em] uppercase">
-            Designed & Developed by Wizzy Sovereign God-Tier © 2026
+    <footer class="mt-auto py-12 text-center w-full bg-black/50 backdrop-blur-md border-t border-white/5">
+        <div class="mb-4">
+             <span class="legendary-glow text-lg">WIZZY SOVEREIGN EMPIRE</span>
+        </div>
+        <p class="text-[10px] text-gray-500 font-bold tracking-[0.3em] uppercase mb-2">
+            The Ultimate Global Standard for Content Extraction
+        </p>
+        <p class="text-[9px] text-gray-700 font-black tracking-widest uppercase">
+            EST. 2026 | ALL RIGHTS RESERVED BY THE SOVEREIGN
         </p>
     </footer>
 
     <script>
         let verified = false;
 
-        // 1. نظام التحقق العالمي الحقيقي
         function executeVerify() {
             if (verified) return;
             const icon = document.getElementById('check-icon');
@@ -157,7 +160,6 @@
             }, 2500);
         }
 
-        // 2. إشعار بدء التحميل (التنبيه الذي طلبته)
         function showDownloadAlert(type) {
             Swal.fire({
                 toast: true, position: 'top-end', icon: 'info',
@@ -167,7 +169,6 @@
             });
         }
 
-        // 3. محرك الاستخراج العالمي
         async function startDownload() {
             const url = document.getElementById('url').value;
             if(!url) return Swal.fire({ icon: 'error', title: 'عذراً!', text: 'الرابط مفقود في الخانة الملكية', background: '#000', color: '#fff' });
