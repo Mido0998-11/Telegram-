@@ -12,174 +12,105 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        
-        body { 
-            background: #020617; 
-            color: #f8fafc; 
-            font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
-        }
-
-        /* Moving Background Effect */
-        .bg-mesh {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
-            z-index: -1;
-        }
-
-        .glass { 
-            background: rgba(15, 23, 42, 0.6); 
-            backdrop-filter: blur(25px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-
-        .btn-sovereign {
-            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .btn-sovereign:hover {
-            transform: scale(1.02) translateY(-3px);
-            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
-        }
+        body { background: #020617; color: #f8fafc; font-family: 'Cairo', sans-serif; }
+        .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%); z-index: -1; }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-sovereign { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); transition: 0.4s; }
+        .legendary-glow { background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899, #3b82f6); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center">
     <div class="bg-mesh"></div>
 
-    <div class="w-full max-w-2xl z-10">
-        
+    <div class="w-full max-w-2xl z-10 px-4 mt-20 flex-grow">
         <div class="text-center mb-10 animate__animated animate__fadeInDown">
-            <h1 class="text-6xl font-black tracking-tighter mb-2 italic">
-                <span class="text-blue-500">WIZZY</span> <span class="text-white">SOVEREIGN</span>
-            </h1>
-            <div class="flex items-center justify-center gap-2">
-                <span class="h-[1px] w-12 bg-blue-500"></span>
-                <p class="text-gray-400 font-bold text-xs tracking-[0.5em] uppercase">V40.0 God-Tier</p>
-                <span class="h-[1px] w-12 bg-blue-500"></span>
-            </div>
+            <h1 class="text-5xl md:text-6xl font-black italic"><span class="text-blue-500">WIZZY</span> <span class="text-white">SOVEREIGN</span></h1>
+            <p class="text-gray-400 font-bold text-[10px] tracking-[0.5em]">The Global Power V43.0</p>
         </div>
 
-        <div class="glass p-8 rounded-[3rem] mb-8 animate__animated animate__zoomIn">
-            <div class="relative mb-6">
-                <i class="fa-solid fa-link absolute right-5 top-1/2 -translate-y-1/2 text-blue-500"></i>
-                <input type="text" id="url" placeholder="انسخ الرابط الملكي هنا..." 
-                       class="w-full p-5 pr-14 rounded-2xl bg-black/40 border border-white/5 focus:border-blue-500 outline-none text-lg font-bold transition-all text-center">
-            </div>
+        <div class="glass p-8 rounded-[2.5rem] mb-8 animate__animated animate__zoomIn">
+            <input type="text" id="url" placeholder="انسخ الرابط الملكي هنا..." 
+                   class="w-full p-5 rounded-2xl bg-black/40 border border-white/5 focus:border-blue-500 outline-none text-lg font-bold text-center mb-6">
             
-            <button onclick="getDownload()" id="btn" class="w-full btn-sovereign p-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3">
-                <i class="fa-solid fa-bolt-lightning"></i>
-                <span>استخراج القوة 🔱</span>
+            <button onclick="askChallenge()" id="btn" class="w-full btn-sovereign p-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3">
+                <i class="fa-solid fa-shield-check"></i>
+                <span>تحقق سيادي واستخراج 🔱</span>
             </button>
         </div>
 
-        <div id="loader" class="hidden glass p-8 rounded-[3rem] space-y-4 animate__animated animate__fadeIn">
-            <div class="w-full h-64 rounded-3xl shimmer"></div>
-            <div class="h-6 w-3/4 mx-auto rounded-lg shimmer"></div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="h-12 rounded-xl shimmer"></div>
-                <div class="h-12 rounded-xl shimmer"></div>
-            </div>
-        </div>
-
-        <div id="result" class="hidden glass p-8 rounded-[3rem] animate__animated animate__fadeInUp shadow-2xl">
-            <div class="relative rounded-3xl overflow-hidden mb-6 group">
-                <img id="cover" class="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-6">
-                    <h3 id="title" class="text-white font-bold text-xl mb-4 line-clamp-2"></h3>
-                    
-                    <div class="flex justify-between items-center text-xs font-bold text-gray-300 border-t border-white/10 pt-4">
-                        <div class="flex items-center gap-1"><i class="fa-solid fa-play text-blue-400"></i> <span id="views">0</span></div>
-                        <div class="flex items-center gap-1"><i class="fa-solid fa-heart text-red-500"></i> <span id="likes">0</span></div>
-                        <div class="flex items-center gap-1"><i class="fa-solid fa-comment text-green-400"></i> <span id="comments">0</span></div>
-                        <div class="flex items-center gap-1"><i class="fa-solid fa-share text-purple-400"></i> <span id="shares">0</span></div>
-                    </div>
+        <div id="result" class="hidden glass p-6 rounded-[2.5rem] animate__animated animate__fadeInUp mb-10">
+            <div class="relative rounded-3xl overflow-hidden mb-6">
+                <img id="cover" class="w-full h-72 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black p-6 flex flex-col justify-end">
+                    <h3 id="title" class="text-white font-bold text-lg mb-2 truncate"></h3>
                 </div>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a id="hd" class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 p-4 rounded-2xl font-black hover:opacity-90 transition-all text-white no-underline shadow-lg">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> جودة HD
-                </a>
-                <a id="sd" class="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 p-4 rounded-2xl font-black hover:opacity-90 transition-all text-white no-underline shadow-lg">
-                    <i class="fa-solid fa-download"></i> جودة SD
-                </a>
-                <a id="mp3" class="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-2xl font-black hover:opacity-90 transition-all text-white no-underline sm:col-span-2 shadow-lg">
-                    <i class="fa-solid fa-music"></i> تحميل الصوت MP3
-                </a>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a id="hd" class="bg-emerald-600 p-4 rounded-xl font-black text-center text-white no-underline">تحميل HD 💎</a>
+                <a id="sd" class="bg-blue-600 p-4 rounded-xl font-black text-center text-white no-underline">تحميل SD 🎬</a>
+                <a id="mp3" class="bg-purple-600 p-4 rounded-xl font-black text-center text-white no-underline sm:col-span-2">تحميل MP3 🎵</a>
             </div>
         </div>
     </div>
 
-    <footer class="mt-12 text-gray-500 text-[10px] font-black tracking-[0.6em] uppercase animate__animated animate__fadeIn">
-        Designed by Wizzy Sovereign © 2026
+    <footer class="w-full glass py-10 mt-20 text-center">
+        <p class="legendary-glow text-[12px] tracking-[0.4em]">DESIGNED & DEVELOPED BY WIZZY SOVEREIGN © 2026</p>
     </footer>
 
     <script>
-        const Toast = Swal.mixin({
-            toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, timerProgressBar: true,
-            background: '#0f172a', color: '#fff'
-        });
+        // الخطوة 1: طلب السؤال من السيرفر
+        async function askChallenge() {
+            const url = document.getElementById('url').value;
+            if(!url) return Swal.fire({ icon: 'warning', title: 'عذراً!', text: 'ضع الرابط أولاً يا ملك', background: '#0f172a', color: '#fff' });
 
-        async function getDownload() {
-            const urlInput = document.getElementById('url').value;
-            const btn = document.getElementById('btn');
-            const loader = document.getElementById('loader');
-            const result = document.getElementById('result');
-            
-            if(!urlInput) {
-                return Swal.fire({ icon: 'warning', title: 'يا ملك!', text: 'الرابط مفقود في الخانة السيادية', confirmButtonColor: '#3b82f6', background: '#0f172a', color: '#fff' });
+            const res = await fetch('/api/get_challenge');
+            const data = await res.json();
+
+            // إظهار نافذة التحقق الحقيقية
+            const { value: answer } = await Swal.fire({
+                title: 'تحقق بشري (سيرفر)',
+                text: data.question,
+                input: 'number',
+                inputPlaceholder: 'اكتب النتيجة هنا...',
+                showCancelButton: true,
+                confirmButtonText: 'تأكيد الإجابة ✅',
+                background: '#0f172a',
+                color: '#fff',
+                inputAttributes: { autocapitalize: 'off', autofocus: 'on' }
+            });
+
+            if (answer) {
+                getDownload(answer); // إرسال الإجابة للسيرفر للتحقق
             }
+        }
 
-            // UI State
-            btn.disabled = true;
-            result.classList.add('hidden');
-            loader.classList.remove('hidden');
+        // الخطوة 2: إرسال الرابط والإجابة للسيرفر
+        async function getDownload(answer) {
+            Swal.fire({ title: 'جاري التحقق والاستخراج...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#0f172a', color: '#fff' });
 
             try {
                 const response = await fetch('/api/download', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: urlInput})
+                    body: JSON.stringify({url: document.getElementById('url').value, answer: answer})
                 });
                 const res = await response.json();
                 
                 if(res.success) {
                     const d = res.data;
+                    document.getElementById('result').classList.remove('hidden');
                     document.getElementById('cover').src = d.cover;
-                    document.getElementById('title').innerText = d.title || "تم جلب الفيديو ⚡";
-                    
-                    // Stats
-                    document.getElementById('views').innerText = d.play_count.toLocaleString();
-                    document.getElementById('likes').innerText = d.digg_count.toLocaleString();
-                    document.getElementById('comments').innerText = d.comment_count.toLocaleString();
-                    document.getElementById('shares').innerText = d.share_count.toLocaleString();
-
-                    // Links with Proxy
-                    document.getElementById('hd').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_HD_${d.id}.mp4`;
-                    document.getElementById('sd').href = `/proxy_download?url=${encodeURIComponent(d.play)}&name=Wizzy_SD_${d.id}.mp4`;
-                    document.getElementById('mp3').href = `/proxy_download?url=${encodeURIComponent(d.music)}&name=Wizzy_Audio_${d.id}.mp3`;
-                    
-                    loader.classList.add('hidden');
-                    result.classList.remove('hidden');
-                    Toast.fire({ icon: 'success', title: 'تم استخراج القوة السيادية بنجاح!' });
+                    document.getElementById('title').innerText = d.title || "تم الاستخراج ⚡";
+                    document.getElementById('hd').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_HD.mp4`;
+                    document.getElementById('sd').href = `/proxy_download?url=${encodeURIComponent(d.play)}&name=Wizzy_SD.mp4`;
+                    document.getElementById('mp3').href = `/proxy_download?url=${encodeURIComponent(d.music)}&name=Wizzy_Audio.mp3`;
+                    Swal.close();
                 } else {
-                    throw new Error(res.message);
+                    Swal.fire({ icon: 'error', title: 'فشل التحقق!', text: res.message, background: '#0f172a', color: '#fff' });
                 }
             } catch(e) {
-                loader.classList.add('hidden');
-                Swal.fire({ icon: 'error', title: 'خطأ فني', text: 'المكنة واجهت مشكلة، جرب رابط آخر', background: '#0f172a', color: '#fff' });
-            } finally {
-                btn.disabled = false;
+                Swal.fire({ icon: 'error', title: 'خطأ!', text: 'حدثت مشكلة في الاتصال', background: '#0f172a', color: '#fff' });
             }
         }
     </script>
