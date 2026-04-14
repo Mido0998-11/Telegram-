@@ -1,59 +1,89 @@
 <div align="center">
 
-<svg width="600" height="120" viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg">
+<svg width="100%" height="150" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes neon-glow {
+      0%, 100% { fill: #ff0050; text-shadow: 0 0 10px #ff0050, 0 0 20px #ff0050; }
+      50% { fill: #00f2ea; text-shadow: 0 0 10px #00f2ea, 0 0 20px #00f2ea; }
+    }
+    .neon-text {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 70px;
+      text-transform: uppercase;
+      animation: neon-glow 3s infinite;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+  </style>
   <defs>
-    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#ff0050;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#00f2ea;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#ff0050;stop-opacity:1" />
-    </linearGradient>
-    <filter id="shadow">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    <filter id="neonBlur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
   </defs>
-  <text x="50%" y="50%" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="900" fill="url(#glow)" text-anchor="middle" dominant-baseline="middle" filter="url(#shadow)">WIZZY SOVEREIGN</text>
-  <text x="50%" y="50%" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="900" fill="url(#glow)" text-anchor="middle" dominant-baseline="middle">WIZZY SOVEREIGN</text>
-  <text x="50%" y="85%" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#555" text-anchor="middle" letter-spacing="8">TIKTOK DOWNLOADER ELITE</text>
+  <text x="50%" y="50%" class="neon-text" filter="url(#neonBlur)">WIZZY SOVEREIGN</text>
 </svg>
 
-### 🔱 المنصة العالمية لتحميل محتوى تيك توك السيادية 🔱
-**أقوى محرك استخراج في الشرق الأوسط بإدارة الإمبراطور ويزي**
+### 👑 【 المخطوطة الأسطورية لمنصة التحميل العالمية 】 👑
+**"حيث تنتهي حدود التقنية، تبدأ سيادة ويزي"**
 
 ---
 
-[ ![المنصة لايف](https://img.shields.io/badge/Status-Live-emerald?style=for-the-badge&logo=render) ](https://telegram-8g07.onrender.com)
-[ ![بايثون](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python) ]()
-[ ![الحماية](https://img.shields.io/badge/Security-God--Tier-red?style=for-the-badge&logo=shiled) ]()
+<p align="center">
+  <img src="https://img.shields.io/badge/VERSION-50.0--ULTIMATE-ff0050?style=for-the-badge&logo=probot" />
+  <img src="https://img.shields.io/badge/SECURITY-SOVEREIGN--GUARD-00f2ea?style=for-the-badge&logo=google-cloud" />
+  <img src="https://img.shields.io/badge/ENGINE-FLASK--ELITE-white?style=for-the-badge&logo=flask" />
+</p>
+
+---
 
 </div>
 
-## 📜 وصف المشروع
-منصة **Wizzy Sovereign** هي تطبيق ويب فخم تم تصميمه لتقديم تجربة تحميل "Premium" لمحتوى TikTok. تم بناء الموقع باستخدام تقنيات حديثة تجمع بين سرعة الأداء (Backend) وجمالية التصميم (Frontend) لضمان السيادة المطلقة في عالم التحميل.
+## 🌌 رؤية الإمبراطورية (The Vision)
+هذا المشروع ليس مجرد أداة لتحميل الفيديوهات؛ إنه **بيان تقني** يثبت أن السيادة الرقمية يمكن بناؤها بأيدي إمبراطور واحد. تم تصميم **Wizzy Sovereign TikTok Downloader** ليكون الأسرع، الأجمل، والأكثر أماناً في الفضاء السيادي، مع واجهة مستخدم مستوحاة من عوالم الـ **Cyberpunk** المتوهجة.
 
 ---
 
-## 🔥 الميزات الأسطورية
-* **🚀 تحميل فوري ومباشر:** وداعاً للشاشات السوداء، التحميل يبدأ فوراً في الاستوديو.
-* **💎 جودة Ultra HD:** استخراج الفيديو بأعلى جودة متوفرة في سيرفرات تيك توك.
-* **🎵 محرك MP3:** فصل الموسيقى عن الفيديو بضغطة زر واحدة وبنقاوة صوت احترافية.
-* **🛡️ Sovereign Guard:** نظام تحقق عالمي متطور (Cloudflare Style) لحماية المنصة من البوتات الوهمية.
-* **🎨 Cyberpunk UI:** واجهة سينمائية متفاعلة مع تأثيرات نيون متوهجة تليق بالمستخدمين الملوك.
+## 🚀 الميزات الخارقة (God-Tier Features)
+
+### ⚡ محرك الاستخراج النفاذ
+تم تزويد المنصة بـ **Proxy Server** متطور يقوم بجلب البيانات من سيرفرات TikTok العالمية وإعادة ضخها للمستخدم مباشرة. هذا النظام يضمن:
+- **تخطي المشغل الافتراضي:** الفيديو ينزل فوراً في "معرض الصور" دون المرور بالشاشة السوداء.
+- **ثبات الروابط:** روابط ذكية لا تنتهي صلاحيتها أثناء التحميل.
+
+### 🛡️ نظام الحماية (Sovereign Guard V2)
+لقد قمنا باستبدال أنظمة التحقق التقليدية بنظام **Verify-Logic** عالمي:
+- **تحقق بشري حقيقي:** مربع فحص سيادي يحاكي أنظمة Cloudflare.
+- **حماية Backend:** السيرفر لا يستجيب لأي طلب مجهول ما لم يتم توثيقه عبر واجهة المستخدم الرسمية.
+
+### 🎨 الجمالية السينمائية
+- **Border-Beam Effect:** شريط ضوئي يدور حول البطاقة الرئيسية يمثل تدفق البيانات السيادية.
+- **Mesh Gradients:** خلفية حية تتفاعل ببطء لتوفير راحة بصرية وهيبة تقنية.
+- **Download Alerts:** إشعارات "Toast" فورية تظهر عند بدء التحميل لتأكيد الاستجابة.
 
 ---
 
-## 🛠️ التقنيات المستخدمة (The Tech Stack)
-* **Language:** Python 3.10
-* **Framework:** Flask (The Engine)
-* **Styling:** Tailwind CSS & Animate.css
-* **Database:** Session-based security logic
-* **Deployment:** Render / Alwaysdata
+## 🛠️ البنية التحتية (Architecture)
+
+| الطبقة | التقنية المستخدمة | الدور السيادي |
+| :--- | :--- | :--- |
+| **المحرك (Core)** | `Python / Flask` | معالجة الطلبات وإدارة التشفير |
+| **الواجهة (Shell)** | `Tailwind CSS / Animate.css` | الزخرفة السينمائية وتجربة المستخدم |
+| **الحماية (Shield)** | `Session Logic / CSRF` | منع البوتات والطلبات الوهمية |
+| **التوزيع (Host)** | `Render Global Edge` | ضمان بقاء المنصة Live 24/7 |
 
 ---
 
-## ⚙️ طريقة التشغيل (Deployment)
-لو حابب تشغل نسختك الخاصة من الإمبراطورية:
-1. ارفع الملفات لـ GitHub.
-2. اربط GitHub بـ Render أو Alwaysdata.
-3. استخدم الأمر التالي لبناء المشروع:
-   ```bash
-   pip install -r requirements.txt
+## 📂 هيكلة الملفات الملكية
+مشروع الإمبراطورية مقسم بعناية هندسية فائقة:
+```text
+🔱 WIZZY-EMPIRE/
+├── 🧠 app.py              # مخ الإمبراطورية (المحرك الرئيسي)
+├── 📦 requirements.txt     # كتالوج المكتبات السيادية
+├── 📄 runtime.txt          # نسخة لغة بايثون المعتمدة
+└── 📁 templates/           # الديوان الملكي (واجهة المستخدم)
+    └── 🎨 index.html       # اللوحة الفنية المتوهجة
