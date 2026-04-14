@@ -3,120 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔱 Wizzy Sovereign | Direct Downloader</title>
+    <title>🔱 Wizzy Sovereign | TikTok</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        :root { --tiktok-cyan: #00f2ea; --tiktok-pink: #ff0050; }
-        body { background: #000; color: #fff; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
-        .bg-glow { position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 242, 234, 0.05) 0%, transparent 70%); filter: blur(80px); z-index: -1; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap');
         
-        .sovereign-card { position: relative; background: rgba(15, 15, 15, 0.9); backdrop-filter: blur(20px); border-radius: 2.5rem; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .sovereign-card::before { content: ''; position: absolute; inset: -2px; padding: 2px; border-radius: 2.5rem; background: linear-gradient(90deg, transparent, var(--tiktok-cyan), var(--tiktok-pink), transparent); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; background-size: 200% auto; animation: beam 4s linear infinite; pointer-events: none; }
+        body { 
+            background-color: #000; 
+            color: #fff; 
+            font-family: 'Cairo', sans-serif; 
+            margin: 0;
+            padding: 0;
+            display: block; /* لضمان عدم الاختفاء */
+        }
+
+        .sovereign-card { 
+            background: #0f0f0f; 
+            border: 2px solid #1a1a1a;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* خط النيون المتوهج */
+        .sovereign-card::after {
+            content: ''; position: absolute; inset: 0; padding: 2px; border-radius: 20px;
+            background: linear-gradient(90deg, #00f2ea, #ff0050, #00f2ea);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude; background-size: 200% auto; animation: beam 3s linear infinite;
+            pointer-events: none;
+        }
         @keyframes beam { to { background-position: 200% center; } }
 
-        .btn-elite { background: linear-gradient(90deg, var(--tiktok-pink), var(--tiktok-cyan)); color: #000; font-weight: 900; transition: 0.4s; }
-        .btn-elite:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 242, 234, 0.5); }
-        .legendary-glow { background: linear-gradient(to right, var(--tiktok-pink), var(--tiktok-cyan), #fff, var(--tiktok-pink)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; font-weight: 900; }
-        @keyframes shine { to { background-position: 200% center; } }
+        .btn-ash {
+            background: linear-gradient(45deg, #ff0050, #ff4d4d);
+            color: white; font-weight: 900; text-transform: uppercase;
+            border-radius: 15px; width: 100%; padding: 20px; font-size: 1.5rem;
+            box-shadow: 0 6px 0 #800028; cursor: pointer; border: none;
+        }
+        .btn-ash:active { transform: translateY(3px); box-shadow: 0 3px 0 #800028; }
+
+        input {
+            width: 100%; background: #1a1a1a; border: 1px solid #333;
+            color: #00f2ea; padding: 20px; border-radius: 15px;
+            text-align: center; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4">
-    <div class="bg-glow"></div>
+<body class="p-4">
 
-    <div class="w-full max-w-2xl mt-10 z-10">
-        <div class="text-center mb-12 animate__animated animate__fadeInDown">
-            <h1 class="text-5xl md:text-6xl font-black italic tracking-tighter mb-2">WIZZY <span class="text-[var(--tiktok-pink)]">SOVEREIGN</span></h1>
-            <p class="text-gray-500 font-bold text-[10px] tracking-[0.5em] uppercase italic">Direct Forced Download Engine</p>
-        </div>
+    <div class="max-w-xl mx-auto text-center mt-10">
+        <h1 class="text-5xl font-black italic mb-2 tracking-tighter" style="color: #ff0050;">
+            WIZZY <span style="color: #fff; text-shadow: 0 0 10px #00f2ea;">SOVEREIGN</span>
+        </h1>
+        <p class="text-gray-500 font-bold text-[10px] tracking-[0.5em] mb-10">KHARTOUM ASH EDITION</p>
 
-        <div class="sovereign-card p-10 shadow-2xl mb-12 animate__animated animate__zoomIn">
-            <input type="text" id="url" placeholder="ضع رابط الإبداع هنا..." 
-                   class="w-full p-6 rounded-3xl bg-white/5 border border-white/10 outline-none text-xl font-bold text-center mb-8 focus:border-[var(--tiktok-cyan)] transition-all placeholder-gray-800">
-            
-            <button onclick="startDownload()" class="w-full btn-elite p-6 rounded-3xl text-2xl flex items-center justify-center gap-3">
-                <i class="fa-solid fa-cloud-arrow-down"></i> <span>بدء التحميل المباشر 🔱</span>
+        <div class="sovereign-card">
+            <input type="text" id="url" placeholder="أدخل الرابط هنا يا ملك...">
+            <button onclick="startDownload()" class="btn-ash">
+                <i class="fa-solid fa-bolt"></i> استخراج القوة
             </button>
         </div>
 
-        <div id="result-box" style="display: none;" class="sovereign-card p-8 animate__animated animate__fadeInUp mb-20">
-            <div class="relative rounded-3xl overflow-hidden border border-white/10 mb-8">
-                <img id="cover" class="w-full h-80 object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black flex items-end p-6">
-                    <h3 id="vid-title" class="text-white font-black text-lg truncate w-full"></h3>
-                </div>
+        <div id="result-box" style="display: none;" class="sovereign-card">
+            <img id="cover" class="w-full rounded-xl mb-6 border-2 border-white/10">
+            <div class="grid grid-cols-1 gap-4">
+                <a id="hd-link" class="bg-[#00f2ea] text-black p-4 rounded-xl font-black no-underline">تحميل فيديو HD 🎥</a>
+                <a id="mp3-link" class="bg-white text-black p-4 rounded-xl font-black no-underline">تحميل صوت MP3 🎵</a>
             </div>
+        </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a id="hd-link" onclick="notifyDownload('فيديو HD')" class="bg-[var(--tiktok-cyan)] text-black p-5 rounded-2xl font-black text-center no-underline flex items-center justify-center gap-2 hover:brightness-110">
-                    <i class="fa-solid fa-video"></i> تحميل فيديو HD
-                </a>
-                <a id="mp3-link" onclick="notifyDownload('ملف MP3')" class="bg-[var(--tiktok-pink)] text-white p-5 rounded-2xl font-black text-center no-underline flex items-center justify-center gap-2 hover:brightness-110 sm:col-span-2">
-                    <i class="fa-solid fa-music"></i> تحميل الصوت MP3
-                </a>
-            </div>
-            <p class="text-center text-[10px] text-gray-500 mt-6 font-bold uppercase">سيتم بدء التحميل فوراً في جهازك</p>
+        <div class="mt-6">
+            <a href="/search" class="text-[#00f2ea] font-bold no-underline opacity-50 hover:opacity-100">
+                <i class="fa-solid fa-magnifying-glass"></i> انتقل لمحرك البحث
+            </a>
         </div>
     </div>
 
-    <footer class="mt-auto py-12 text-center w-full border-t border-white/5">
-        <span class="legendary-glow text-xl uppercase tracking-widest">Wizzy Sovereign Empire</span>
-    </footer>
-
     <script>
-        // التعامل مع الروابط القادمة من البحث
-        window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            if(params.has('url')) {
-                document.getElementById('url').value = params.get('url');
-                startDownload();
-            }
-        }
-
-        function notifyDownload(type) {
-            Swal.fire({
-                toast: true, position: 'top-end', icon: 'success',
-                title: `جاري سحب ${type} وحفظه في جهازك...`,
-                showConfirmButton: false, timer: 3000, background: '#0a0a0a', color: '#fff'
-            });
-        }
-
         async function startDownload() {
-            const urlInput = document.getElementById('url').value;
-            if(!urlInput) return;
+            const val = document.getElementById('url').value;
+            if(!val) return;
 
-            Swal.fire({ title: 'جاري الاستخراج...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#0a0a0a', color: '#fff' });
+            Swal.fire({ title: 'جاري الاستخراج...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#000', color: '#fff' });
 
             try {
                 const response = await fetch('/api/download', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: urlInput})
+                    body: JSON.stringify({url: val})
                 });
                 const res = await response.json();
                 
                 if(res.success) {
-                    const d = res.data;
                     document.getElementById('result-box').style.display = 'block';
-                    document.getElementById('cover').src = d.cover;
-                    document.getElementById('vid-title').innerText = d.title || "فيديو تيك توك سيادي";
-                    
-                    // تحويل الروابط للبروكسي المجبر للتحميل
-                    document.getElementById('hd-link').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_TikTok_HD.mp4`;
-                    document.getElementById('mp3-link').href = `/proxy_download?url=${encodeURIComponent(d.music)}&name=Wizzy_Audio.mp3`;
-                    
+                    document.getElementById('cover').src = res.data.cover;
+                    document.getElementById('hd-link').href = `/proxy_download?url=${encodeURIComponent(res.data.hdplay || res.data.play)}&name=Wizzy.mp4`;
+                    document.getElementById('mp3-link').href = `/proxy_download?url=${encodeURIComponent(res.data.music)}&name=Wizzy.mp3`;
                     Swal.close();
-                    window.scrollTo({ top: document.getElementById('result-box').offsetTop - 20, behavior: 'smooth' });
                 } else {
-                    Swal.fire({ icon: 'error', title: 'خطأ', text: 'فشل في جلب البيانات', background: '#0a0a0a', color: '#fff' });
+                    Swal.fire({ icon: 'error', title: 'فشل', text: 'الرابط غير صالح', background: '#000', color: '#fff' });
                 }
             } catch(e) {
-                Swal.fire({ icon: 'error', title: 'عطل', text: 'فشل الاتصال بمحرك السيادة', background: '#0a0a0a', color: '#fff' });
+                Swal.fire({ icon: 'error', title: 'عطل', text: 'حاول مرة أخرى', background: '#000', color: '#fff' });
             }
         }
     </script>
