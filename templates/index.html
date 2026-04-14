@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔱 Wizzy Sovereign | TikTok Elite</title>
+    <title>🔱 Wizzy Sovereign | TikTok Downloader</title>
     
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" type="image/x-icon">
     
@@ -19,37 +19,29 @@
 
         body { background: #000; color: #fff; font-family: 'Cairo', sans-serif; overflow-x: hidden; }
 
+        /* الزخرفة الخلفية المتحركة */
         .bg-glow {
             position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 242, 234, 0.08) 0%, transparent 70%);
             filter: blur(100px); border-radius: 50%; z-index: -1; animation: move 20s infinite alternate;
         }
         @keyframes move { from { transform: translate(-10%, -10%); } to { transform: translate(20%, 20%); } }
 
+        /* البطاقة السيادية مع تأثير Border-Beam */
         .sovereign-card {
             position: relative; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(30px);
             border-radius: 3rem; border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* إصلاح مشكلة اللمس هنا: أضفت pointer-events: none */
         .sovereign-card::before {
             content: ''; position: absolute; inset: 0; padding: 2px; border-radius: 3rem;
             background: linear-gradient(90deg, transparent, var(--tiktok-cyan), var(--tiktok-pink), transparent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude; background-size: 200% auto; animation: beam 4s linear infinite;
-            pointer-events: none; /* هذا السطر هو الحل للسماح بالضغط */
+            pointer-events: none; /* تم إصلاح اللمس هنا */
         }
         @keyframes beam { to { background-position: 200% center; } }
 
-        .verify-box {
-            border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.03);
-            padding: 18px; border-radius: 20px; cursor: pointer; transition: 0.4s;
-            position: relative; z-index: 10; /* لضمان ظهورها فوق أي طبقة */
-        }
-        .verify-box:hover { background: rgba(255,255,255,0.08); border-color: var(--tiktok-cyan); }
-        
-        .spinner { width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--tiktok-cyan); border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
+        /* أزرار النيون */
         .btn-elite {
             background: linear-gradient(90deg, var(--tiktok-pink), var(--tiktok-cyan));
             color: #000; font-weight: 900; transition: 0.4s; position: relative; z-index: 10;
@@ -76,110 +68,77 @@
                     WIZZY <span class="text-[var(--tiktok-pink)]">TIKTOK</span>
                 </h1>
             </div>
-            <p class="text-gray-500 font-bold text-xs tracking-[0.5em] uppercase">Sovereign God-Tier Engine V50.0</p>
+            <p class="text-gray-500 font-bold text-[10px] tracking-[0.5em] uppercase">Sovereign Download Engine V50.0</p>
         </div>
 
-        <div class="sovereign-card p-10 animate__animated animate__zoomIn shadow-2xl">
+        <div class="sovereign-card p-10 animate__animated animate__zoomIn shadow-2xl mb-12">
             <div class="text-center mb-8">
-                <span class="bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[10px] font-black text-[var(--tiktok-cyan)] uppercase tracking-widest">Global Elite Access</span>
+                <span class="bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[10px] font-black text-[#00f2ea] uppercase tracking-widest italic">Authorized Sovereign Access</span>
             </div>
 
             <input type="text" id="url" placeholder="ضع رابط الإبداع (TikTok) هنا..." 
-                   class="w-full p-6 rounded-3xl bg-white/5 border border-white/5 outline-none text-xl font-bold text-center mb-8 focus:border-[var(--tiktok-cyan)] transition-all placeholder-gray-700 relative z-10">
+                   class="w-full p-6 rounded-3xl bg-white/5 border border-white/5 outline-none text-xl font-bold text-center mb-8 focus:border-[#00f2ea] transition-all relative z-10 placeholder-gray-700">
             
-            <div id="verify-box" class="verify-box flex items-center justify-between mb-8" onclick="executeVerify()">
-                <div class="flex items-center gap-4">
-                    <div id="check-icon" class="w-6 h-6 border-2 border-gray-700 rounded-md flex items-center justify-center"></div>
-                    <span id="verify-text" class="text-sm font-bold text-gray-400">أنا لست برنامج روبوت (التحقق العالمي)</span>
-                </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/RecaptchaLogo.svg" class="w-6 opacity-30">
-            </div>
-
-            <button onclick="startDownload()" id="btn" class="w-full btn-elite p-6 rounded-3xl text-2xl flex items-center justify-center gap-3 opacity-40 cursor-not-allowed" disabled>
+            <button onclick="startDownload()" id="btn" class="w-full btn-elite p-6 rounded-3xl text-2xl flex items-center justify-center gap-3 relative z-10">
                 <i class="fa-solid fa-bolt-lightning"></i>
                 <span>استخراج القوة السيادية 🔱</span>
             </button>
         </div>
 
-        <div id="result" class="hidden sovereign-card p-8 mt-12 animate__animated animate__fadeInUp shadow-2xl mb-20 relative z-10">
-            <div class="relative rounded-[2rem] overflow-hidden mb-6 group">
-                <img id="cover" class="w-full h-80 object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black flex flex-col justify-end p-8">
-                    <h3 id="title" class="text-white font-black text-xl mb-6 truncate"></h3>
+        <div id="result" class="hidden sovereign-card p-8 animate__animated animate__fadeInUp shadow-2xl mb-20 relative z-10">
+            <div class="relative rounded-[2.5rem] overflow-hidden mb-6 group border border-white/10">
+                <img id="cover" class="w-full h-80 object-cover transform group-hover:scale-105 transition-all">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-8">
+                    <h3 id="title" class="text-white font-black text-xl mb-6 truncate px-2"></h3>
                     <div class="flex justify-between items-center text-xs font-bold text-gray-400 border-t border-white/10 pt-5">
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-play text-[var(--tiktok-cyan)]"></i> <span id="views">0</span></div>
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-heart text-[var(--tiktok-pink)]"></i> <span id="likes">0</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-play text-[#00f2ea]"></i> <span id="views">0</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-heart text-[#ff0050]"></i> <span id="likes">0</span></div>
                         <div class="flex items-center gap-2"><i class="fa-solid fa-share text-blue-400"></i> <span id="shares">0</span></div>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a id="hd" onclick="showDownloadAlert('فيديو HD')" class="bg-[var(--tiktok-cyan)] text-black p-5 rounded-2xl font-black text-center no-underline flex items-center justify-center gap-2 hover:brightness-110 transition-all">
-                    <i class="fa-solid fa-video"></i> تحميل فيديو HD
+                <a id="hd" onclick="showNotify('فيديو HD')" class="bg-[#00f2ea] text-black p-5 rounded-2xl font-black text-center no-underline flex items-center justify-center gap-2 hover:brightness-110 transition-all">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> تحميل فيديو HD
                 </a>
-                <a id="mp3" onclick="showDownloadAlert('ملف MP3')" class="bg-[var(--tiktok-pink)] text-white p-5 rounded-2xl font-black text-center no-underline flex items-center justify-center gap-2 hover:brightness-110 transition-all sm:col-span-2">
+                <a id="mp3" onclick="showNotify('ملف MP3')" class="bg-[#ff0050] text-white p-5 rounded-2xl font-black text-center no-underline flex items-center justify-center gap-2 hover:brightness-110 transition-all sm:col-span-2">
                     <i class="fa-solid fa-music"></i> تحميل الصوت MP3
                 </a>
             </div>
         </div>
     </div>
 
-    <footer class="mt-auto py-12 text-center w-full bg-black/50 backdrop-blur-md border-t border-white/5">
-        <div class="mb-4">
-             <span class="legendary-glow text-lg">WIZZY SOVEREIGN EMPIRE</span>
+    <footer class="mt-auto py-12 text-center w-full bg-black/40 backdrop-blur-md border-t border-white/5">
+        <div class="mb-3">
+             <span class="legendary-glow text-xl tracking-widest uppercase">Wizzy Sovereign Empire</span>
         </div>
-        <p class="text-[10px] text-gray-500 font-bold tracking-[0.3em] uppercase mb-2">
-            The Ultimate Global Standard for Content Extraction
-        </p>
-        <p class="text-[9px] text-gray-700 font-black tracking-widest uppercase">
-            EST. 2026 | ALL RIGHTS RESERVED BY THE SOVEREIGN
+        <p class="text-[9px] text-gray-600 font-black tracking-[0.4em] uppercase">
+            Designed & Developed by Wizzy God-Tier © 2026 | All Rights Reserved
         </p>
     </footer>
 
     <script>
-        let verified = false;
-
-        function executeVerify() {
-            if (verified) return;
-            const icon = document.getElementById('check-icon');
-            const text = document.getElementById('verify-text');
-            const btn = document.getElementById('btn');
-
-            icon.innerHTML = '<div class="spinner"></div>';
-            icon.style.border = 'none';
-            text.innerText = 'جاري فحص السيادة الرقمية...';
-
-            setTimeout(() => {
-                verified = true;
-                icon.innerHTML = '<i class="fa-solid fa-check text-[var(--tiktok-cyan)]"></i>';
-                text.innerText = 'تم التحقق بنجاح، أهلاً بك يا ملك ✅';
-                btn.disabled = false;
-                btn.classList.remove('opacity-40', 'cursor-not-allowed');
-                Swal.fire({ icon: 'success', title: 'تم التحقق!', text: 'لقد تم إثبات بشريتك السيادية', timer: 1500, showConfirmButton: false, background: '#000', color: '#fff' });
-            }, 2500);
-        }
-
-        function showDownloadAlert(type) {
+        function showNotify(type) {
             Swal.fire({
                 toast: true, position: 'top-end', icon: 'info',
                 title: `جاري بدء تحميل ${type} الآن يا ملك 🚀`,
                 showConfirmButton: false, timer: 4000, timerProgressBar: true,
-                background: '#000', color: '#fff'
+                background: '#0a0a0a', color: '#fff'
             });
         }
 
         async function startDownload() {
             const url = document.getElementById('url').value;
-            if(!url) return Swal.fire({ icon: 'error', title: 'عذراً!', text: 'الرابط مفقود في الخانة الملكية', background: '#000', color: '#fff' });
+            if(!url) return Swal.fire({ icon: 'error', title: 'عذراً!', text: 'الرابط مفقود في الخانة الملكية', background: '#0a0a0a', color: '#fff' });
 
-            Swal.fire({ title: 'جاري استخراج القوة...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#000', color: '#fff' });
+            Swal.fire({ title: 'جاري استخراج القوة...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#0a0a0a', color: '#fff' });
 
             try {
                 const response = await fetch('/api/download', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: url, verified: verified})
+                    body: JSON.stringify({url: url})
                 });
                 const res = await response.json();
                 
@@ -187,21 +146,21 @@
                     const d = res.data;
                     document.getElementById('result').classList.remove('hidden');
                     document.getElementById('cover').src = d.cover;
-                    document.getElementById('title').innerText = d.title || "Wizzy TikTok Sovereign Content";
+                    document.getElementById('title').innerText = d.title || "Wizzy TikTok Video";
                     document.getElementById('views').innerText = d.play_count.toLocaleString();
                     document.getElementById('likes').innerText = d.digg_count.toLocaleString();
                     document.getElementById('shares').innerText = d.share_count.toLocaleString();
 
-                    document.getElementById('hd').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_HD.mp4`;
+                    document.getElementById('hd').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_TikTok.mp4`;
                     document.getElementById('mp3').href = `/proxy_download?url=${encodeURIComponent(d.music)}&name=Wizzy_Audio.mp3`;
                     
                     Swal.close();
                     window.scrollTo({ top: document.getElementById('result').offsetTop - 30, behavior: 'smooth' });
                 } else {
-                    Swal.fire({ icon: 'error', title: 'فشل العملية', text: res.message, background: '#000', color: '#fff' });
+                    Swal.fire({ icon: 'error', title: 'فشل العملية', text: res.message, background: '#0a0a0a', color: '#fff' });
                 }
             } catch(e) {
-                Swal.fire({ icon: 'error', title: 'خطأ عالمي', text: 'مشكلة في الاتصال بالسيرفر', background: '#000', color: '#fff' });
+                Swal.fire({ icon: 'error', title: 'خطأ عالمي', text: 'مشكلة في الاتصال بالسيرفر 🛠️', background: '#0a0a0a', color: '#fff' });
             }
         }
     </script>
