@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 البحث السيادي | Wizzy Sovereign</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body { background: #000; color: #fff; font-family: 'Cairo', sans-serif; }
+        .bg-glow { position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0, 242, 234, 0.1) 0%, transparent 70%); filter: blur(100px); z-index: -1; top: -100px; right: -100px; }
+        .sovereign-card { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(20px); border-radius: 2rem; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-btn { background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 12px; font-weight: bold; transition: 0.3s; }
+        .nav-btn:hover { background: #ff0050; color: #fff; }
+    </style>
+</head>
+<body class="p-4 min-h-screen">
+    <div class="bg-glow"></div>
+    
+    <div class="max-w-4xl mx-auto flex justify-between items-center mb-10">
+        <a href="/downloader" class="nav-btn no-underline text-gray-400"><i class="fa-solid fa-arrow-right ml-2"></i> للتحميل</a>
+        <h2 class="text-xl font-black italic tracking-tighter text-[#00f2ea]">WIZZY SEARCH</h2>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+        <div class="sovereign-card p-8 mb-10 text-center animate__animated animate__fadeInDown">
+            <h1 class="text-3xl font-black mb-6">اكتشف الإبداع العالمي 🌍</h1>
+            <div class="flex gap-3">
+                <input type="text" id="query" placeholder="ابحث عن أي شيء (مثلاً: راب سوداني)..." 
+                       class="flex-grow p-5 rounded-2xl bg-white/5 border border-white/5 outline-none text-lg">
+                <button onclick="runSearch()" class="bg-[#00f2ea] text-black px-8 rounded-2xl font-black text-xl hover:scale-105 transition-all">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="results" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+    </div>
+
+    <script>
+        async function runSearch() {
+            const query = document.getElementById('query').value;
+            if(!query) return;
+            Swal.fire({ title: 'جاري البحث...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#000', color: '#fff' });
+
+            const res = await fetch('/api/search', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({query: query}) });
+            const data = await res.json();
+            
+            if(data.success) {
+                const container = document.getElementById('results');
+                container.innerHTML = '';
+                data.videos.forEach(v => {
+                    container.innerHTML += `
+                        <div class="sovereign-card overflow-hidden group animate__animated animate__fadeInUp">
+                            <div class="relative h-64">
+                                <img src="${v.cover}" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
+                                    <button onclick="goToDownload('${v.author.unique_id}', '${v.video_id}')" class="bg-[#ff0050] text-white p-3 rounded-full font-black text-xs">تحميل الفيديو 📥</button>
+                                </div>
+                            </div>
+                            <div class="p-4 text-xs font-bold truncate text-gray-400">${v.title || 'بدون عنوان'}</div>
+                        </div>
+                    `;
+                });
+                Swal.close();
+            } else {
+                Swal.fire({ icon: 'error', title: 'عذراً', text: 'لم نجد نتائج', background: '#000', color: '#fff' });
+            }
+        }
+
+        function goToDownload(user, id) {
+            window.location.href = `/downloader?url=https://www.tiktok.com/@${user}/video/${id}`;
+        }
+    </script>
+</body>
+</html>
