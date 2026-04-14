@@ -1,74 +1,50 @@
-from flask import Flask, render_template, request, jsonify, Response, session
+from flask import Flask, render_template, request, jsonify, Response, session, redirect, url_for
 import requests
-import urllib3
-
-# إيقاف تحذيرات الأمان المزعجة
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__)
-app.secret_key = "Wizzy_Sovereign_Ironclad_2026"
+app.secret_key = "Wizzy_Sovereign_Exclusive_Gate_2026"
 
-# 🔱 المحرك العالمي (TikWM)
-API_URL = "https://www.tikwm.com/api/"
+TIKWM_API = "https://tikwm.com/api/"
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"}
 
+# 1. الصفحة الأولى: بوابة التحقق السيادي
 @app.route('/')
+def verify_page():
+    return render_template('verify.html')
+
+# 2. استقبال نجاح التحقق
+@app.route('/api/set_verified', methods=['POST'])
+def set_verified():
+    session['is_sovereign'] = True # إعطاء تذكرة العبور
+    return jsonify({"success": True})
+
+# 3. الصفحة الثانية: المنصة الرئيسية (ممنوع الدخول بدون تذكرة)
+@app.route('/downloader')
 def index():
+    if not session.get('is_sovereign'):
+        return redirect(url_for('verify_page'))
     return render_template('index.html')
 
+# 4. محرك الاستخراج (API)
 @app.route('/api/download', methods=['POST'])
 def download():
-    data = request.json
-    video_url = data.get('url', '')
-    is_verified = data.get('verified', False)
-
-    if not is_verified:
-        return jsonify({"success": False, "message": "تخطى التحقق أولاً يا ملك 🚫"}), 403
-
-    # قناع احترافي جداً (نفس متصفح الموبايل)
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; SM-G981B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.162 Mobile Safari/537.36',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }
-
-    payload = {'url': video_url, 'hd': '1'}
-
+    if not session.get('is_sovereign'):
+        return jsonify({"success": False, "message": "فشل التحقق الأمني 🚫"}), 403
+    
+    video_url = request.json.get('url', '').lower()
     try:
-        # المحاولة الأولى بالـ API الأساسي
-        response = requests.post(API_URL, data=payload, headers=headers, timeout=25, verify=False)
-        
-        # كود تشخيصي (Diagnostics)
-        if response.status_code != 200:
-            return jsonify({
-                "success": False, 
-                "message": f"السيرفر العالمي رفض الطلب (خطأ {response.status_code}) 🚫"
-            })
-
-        res_data = response.json()
-        
-        if res_data.get('code') == 0:
-            return jsonify({"success": True, "data": res_data['data']})
-        else:
-            return jsonify({
-                "success": False, 
-                "message": f"تنبيه من السيرفر: {res_data.get('msg', 'رابط غير صالح')} ⚠️"
-            })
-
-    except Exception as e:
-        return jsonify({"success": False, "message": "المكنة واجهت مشكلة في الاتصال، جرب مرة تانية 🛠️"})
+        res = requests.post(TIKWM_API, data={"url": video_url, "hd": "1"}, headers=HEADERS, timeout=20).json()
+        if res.get('code') == 0:
+            return jsonify({"success": True, "data": res['data']})
+        return jsonify({"success": False, "message": "السيرفر العالمي لم يجد الفيديو ⚠️"})
+    except:
+        return jsonify({"success": False, "message": "عطل في المكنة السيادية 🛠️"})
 
 @app.route('/proxy_download')
 def proxy_download():
     target_url = request.args.get('url')
-    filename = request.args.get('name', 'Wizzy_TikTok.mp4')
-    if not target_url: return "مفقود", 400
-    
-    # تحميل الفيديو بـ Stream لضمان السرعة
-    req = requests.get(target_url, stream=True, verify=False)
-    return Response(
-        req.iter_content(chunk_size=1024*32),
-        content_type=req.headers.get('Content-Type'),
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
-    )
+    req = requests.get(target_url, headers=HEADERS, stream=True)
+    return Response(req.iter_content(chunk_size=1024*16), content_type=req.headers.get('Content-Type'))
 
 if __name__ == "__main__":
     app.run()
