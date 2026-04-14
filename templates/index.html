@@ -37,16 +37,21 @@
             background: linear-gradient(90deg, transparent, var(--tiktok-cyan), var(--tiktok-pink), transparent);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude; background-size: 200% auto; animation: beam 4s linear infinite;
-            pointer-events: none; /* تم إصلاح اللمس هنا */
+            pointer-events: none;
         }
         @keyframes beam { to { background-position: 200% center; } }
 
-        /* أزرار النيون */
         .btn-elite {
             background: linear-gradient(90deg, var(--tiktok-pink), var(--tiktok-cyan));
             color: #000; font-weight: 900; transition: 0.4s; position: relative; z-index: 10;
         }
         .btn-elite:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0, 242, 234, 0.5); }
+
+        .nav-link {
+            background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 15px;
+            font-weight: bold; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .nav-link:hover { background: var(--tiktok-cyan); color: #000; }
 
         .legendary-glow {
             background: linear-gradient(to right, var(--tiktok-pink), var(--tiktok-cyan), #fff, var(--tiktok-pink));
@@ -58,22 +63,29 @@
 </head>
 <body class="min-h-screen flex flex-col items-center p-4">
     <div class="bg-glow" style="top: -200px; left: -200px;"></div>
-    <div class="bg-glow" style="bottom: -200px; right: -200px; background: radial-gradient(circle, rgba(255, 0, 80, 0.08) 0%, transparent 70%);"></div>
 
     <div class="w-full max-w-2xl z-10">
-        <div class="text-center my-12 animate__animated animate__fadeInDown">
+        
+        <div class="w-full flex justify-between items-center mt-6 mb-10 animate__animated animate__fadeIn">
+            <h2 class="text-sm font-black tracking-widest text-gray-500 uppercase italic">Sovereign V50</h2>
+            <a href="/search" class="nav-link text-[var(--tiktok-cyan)] no-underline">
+                <i class="fa-solid fa-magnifying-glass ml-2"></i> اكتشف وفيديوهات
+            </a>
+        </div>
+
+        <div class="text-center mb-12 animate__animated animate__fadeInDown">
             <div class="flex items-center justify-center gap-4 mb-3">
                 <i class="fa-brands fa-tiktok text-5xl text-[var(--tiktok-cyan)]"></i>
                 <h1 class="text-5xl md:text-6xl font-black italic tracking-tighter">
                     WIZZY <span class="text-[var(--tiktok-pink)]">TIKTOK</span>
                 </h1>
             </div>
-            <p class="text-gray-500 font-bold text-[10px] tracking-[0.5em] uppercase">Sovereign Download Engine V50.0</p>
+            <p class="text-gray-500 font-bold text-[10px] tracking-[0.5em] uppercase italic">The Ultimate Extraction Engine</p>
         </div>
 
         <div class="sovereign-card p-10 animate__animated animate__zoomIn shadow-2xl mb-12">
             <div class="text-center mb-8">
-                <span class="bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[10px] font-black text-[#00f2ea] uppercase tracking-widest italic">Authorized Sovereign Access</span>
+                <span class="bg-white/5 border border-white/10 px-5 py-2 rounded-full text-[10px] font-black text-[#00f2ea] uppercase tracking-widest italic">Ready for Download</span>
             </div>
 
             <input type="text" id="url" placeholder="ضع رابط الإبداع (TikTok) هنا..." 
@@ -86,8 +98,8 @@
         </div>
 
         <div id="result" class="hidden sovereign-card p-8 animate__animated animate__fadeInUp shadow-2xl mb-20 relative z-10">
-            <div class="relative rounded-[2.5rem] overflow-hidden mb-6 group border border-white/10">
-                <img id="cover" class="w-full h-80 object-cover transform group-hover:scale-105 transition-all">
+            <div class="relative rounded-[2.5rem] overflow-hidden mb-6 border border-white/10">
+                <img id="cover" class="w-full h-80 object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex flex-col justify-end p-8">
                     <h3 id="title" class="text-white font-black text-xl mb-6 truncate px-2"></h3>
                     <div class="flex justify-between items-center text-xs font-bold text-gray-400 border-t border-white/10 pt-5">
@@ -114,11 +126,22 @@
              <span class="legendary-glow text-xl tracking-widest uppercase">Wizzy Sovereign Empire</span>
         </div>
         <p class="text-[9px] text-gray-600 font-black tracking-[0.4em] uppercase">
-            Designed & Developed by Wizzy God-Tier © 2026 | All Rights Reserved
+            Designed & Developed by Wizzy God-Tier © 2026
         </p>
     </footer>
 
     <script>
+        // --- الجزء المضاف للربط مع البحث ---
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.has('url')) {
+                const videoUrl = urlParams.get('url');
+                document.getElementById('url').value = videoUrl;
+                // تأخير بسيط لضمان تحميل الصفحة ثم البدء
+                setTimeout(() => { startDownload(); }, 500);
+            }
+        }
+
         function showNotify(type) {
             Swal.fire({
                 toast: true, position: 'top-end', icon: 'info',
@@ -129,8 +152,8 @@
         }
 
         async function startDownload() {
-            const url = document.getElementById('url').value;
-            if(!url) return Swal.fire({ icon: 'error', title: 'عذراً!', text: 'الرابط مفقود في الخانة الملكية', background: '#0a0a0a', color: '#fff' });
+            const urlInput = document.getElementById('url').value;
+            if(!urlInput) return Swal.fire({ icon: 'error', title: 'عذراً!', text: 'الرابط مفقود في الخانة الملكية', background: '#0a0a0a', color: '#fff' });
 
             Swal.fire({ title: 'جاري استخراج القوة...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#0a0a0a', color: '#fff' });
 
@@ -138,7 +161,7 @@
                 const response = await fetch('/api/download', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({url: url})
+                    body: JSON.stringify({url: urlInput})
                 });
                 const res = await response.json();
                 
@@ -151,7 +174,7 @@
                     document.getElementById('likes').innerText = d.digg_count.toLocaleString();
                     document.getElementById('shares').innerText = d.share_count.toLocaleString();
 
-                    document.getElementById('hd').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_TikTok.mp4`;
+                    document.getElementById('hd').href = `/proxy_download?url=${encodeURIComponent(d.hdplay || d.play)}&name=Wizzy_HD.mp4`;
                     document.getElementById('mp3').href = `/proxy_download?url=${encodeURIComponent(d.music)}&name=Wizzy_Audio.mp3`;
                     
                     Swal.close();
