@@ -5,35 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔱 Wizzy Sovereign | TikTok</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap');
-        
-        body { 
-            background-color: #000; 
-            color: #fff; 
-            font-family: 'Cairo', sans-serif; 
+        body {
+            background-color: #000 !important;
+            color: #ffffff !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            display: block; /* لضمان عدم الاختفاء */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
-        .sovereign-card { 
-            background: #0f0f0f; 
-            border: 2px solid #1a1a1a;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            padding: 25px;
+        /* حاوية السيادة - تصميم كرتوني واقعي (Hard Borders) */
+        .main-box {
+            background: #0f0f0f;
+            border: 4px solid #1a1a1a;
+            border-radius: 30px;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             position: relative;
-            overflow: hidden;
         }
 
-        /* خط النيون المتوهج */
-        .sovereign-card::after {
-            content: ''; position: absolute; inset: 0; padding: 2px; border-radius: 20px;
+        /* خط النيون المتوهج - Khartoum Ash Style */
+        .main-box::after {
+            content: ''; position: absolute; inset: -4px; padding: 4px; border-radius: 30px;
             background: linear-gradient(90deg, #00f2ea, #ff0050, #00f2ea);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             mask-composite: exclude; background-size: 200% auto; animation: beam 3s linear infinite;
@@ -41,57 +41,117 @@
         }
         @keyframes beam { to { background-position: 200% center; } }
 
-        .btn-ash {
-            background: linear-gradient(45deg, #ff0050, #ff4d4d);
-            color: white; font-weight: 900; text-transform: uppercase;
-            border-radius: 15px; width: 100%; padding: 20px; font-size: 1.5rem;
-            box-shadow: 0 6px 0 #800028; cursor: pointer; border: none;
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: #ff0050;
+            letter-spacing: -2px;
         }
-        .btn-ash:active { transform: translateY(3px); box-shadow: 0 3px 0 #800028; }
+
+        .sub-text {
+            color: #555;
+            font-weight: bold;
+            font-size: 10px;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+        }
 
         input {
-            width: 100%; background: #1a1a1a; border: 1px solid #333;
-            color: #00f2ea; padding: 20px; border-radius: 15px;
-            text-align: center; font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;
+            width: 80%;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #333;
+            background: #1a1a1a;
+            color: #00f2ea;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        /* زر الإمبراطورية العظيم */
+        .btn-action {
+            width: 90%;
+            padding: 20px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #ff0050, #ff4d4d);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border: none;
+            box-shadow: 0 6px 0 #800028;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .btn-action:active { transform: translateY(3px); box-shadow: 0 3px 0 #800028; }
+
+        /* منطقة النتائج */
+        #result-box {
+            display: none;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .cover-img {
+            width: 100%;
+            border-radius: 20px;
+            border: 2px solid #222;
+            margin-bottom: 20px;
+        }
+
+        .dl-link {
+            display: block;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 900;
+            color: black;
+        }
+
+        .bg-cyan { background-color: #00f2ea; }
+        .bg-white { background-color: #fff; }
+
+        .footer-text {
+            margin-top: 50px;
+            color: #333;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 2px;
         }
     </style>
 </head>
-<body class="p-4">
+<body>
 
-    <div class="max-w-xl mx-auto text-center mt-10">
-        <h1 class="text-5xl font-black italic mb-2 tracking-tighter" style="color: #ff0050;">
-            WIZZY <span style="color: #fff; text-shadow: 0 0 10px #00f2ea;">SOVEREIGN</span>
-        </h1>
-        <p class="text-gray-500 font-bold text-[10px] tracking-[0.5em] mb-10">KHARTOUM ASH EDITION</p>
+    <div class="main-box">
+        <h1>WIZZY</h1>
+        <div class="sub-text">SOVEREIGN EMPIRE</div>
 
-        <div class="sovereign-card">
-            <input type="text" id="url" placeholder="أدخل الرابط هنا يا ملك...">
-            <button onclick="startDownload()" class="btn-ash">
-                <i class="fa-solid fa-bolt"></i> استخراج القوة
-            </button>
-        </div>
+        <input type="text" id="url" placeholder="أدخل الرابط هنا...">
+        <button onclick="startDownload()" class="btn-action">استخراج القوة 🔱</button>
 
-        <div id="result-box" style="display: none;" class="sovereign-card">
-            <img id="cover" class="w-full rounded-xl mb-6 border-2 border-white/10">
-            <div class="grid grid-cols-1 gap-4">
-                <a id="hd-link" class="bg-[#00f2ea] text-black p-4 rounded-xl font-black no-underline">تحميل فيديو HD 🎥</a>
-                <a id="mp3-link" class="bg-white text-black p-4 rounded-xl font-black no-underline">تحميل صوت MP3 🎵</a>
-            </div>
-        </div>
-
-        <div class="mt-6">
-            <a href="/search" class="text-[#00f2ea] font-bold no-underline opacity-50 hover:opacity-100">
-                <i class="fa-solid fa-magnifying-glass"></i> انتقل لمحرك البحث
-            </a>
+        <div id="result-box">
+            <img id="cover" class="cover-img" src="">
+            <a id="hd-link" class="dl-link bg-cyan" href="#">تحميل فيديو HD 🎥</a>
+            <a id="mp3-link" class="dl-link bg-white" href="#">تحميل صوت MP3 🎵</a>
         </div>
     </div>
 
+    <div class="footer-text">DESIGNED BY WIZZY © 2026</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         async function startDownload() {
             const val = document.getElementById('url').value;
             if(!val) return;
 
-            Swal.fire({ title: 'جاري الاستخراج...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#000', color: '#fff' });
+            // إظهار تنبيه بسيط
+            if(window.Swal) {
+                Swal.fire({ title: 'جاري العمل...', allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: '#000', color: '#fff' });
+            }
 
             try {
                 const response = await fetch('/api/download', {
@@ -106,12 +166,12 @@
                     document.getElementById('cover').src = res.data.cover;
                     document.getElementById('hd-link').href = `/proxy_download?url=${encodeURIComponent(res.data.hdplay || res.data.play)}&name=Wizzy.mp4`;
                     document.getElementById('mp3-link').href = `/proxy_download?url=${encodeURIComponent(res.data.music)}&name=Wizzy.mp3`;
-                    Swal.close();
+                    if(window.Swal) Swal.close();
                 } else {
-                    Swal.fire({ icon: 'error', title: 'فشل', text: 'الرابط غير صالح', background: '#000', color: '#fff' });
+                    alert("فشل الاستخراج، تأكد من الرابط");
                 }
             } catch(e) {
-                Swal.fire({ icon: 'error', title: 'عطل', text: 'حاول مرة أخرى', background: '#000', color: '#fff' });
+                alert("حدث خطأ في الاتصال بالسيرفر");
             }
         }
     </script>
