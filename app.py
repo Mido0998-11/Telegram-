@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify, Response
 import requests
 
 app = Flask(__name__)
-app.secret_key = "WIZZY_SOVEREIGN_PRO_V2_2026"
+app.secret_key = "WIZZY_SOVEREIGN_PRO_FIXED_2026"
 
-# --- الواجهة المهنية المحدثة (Professional UI - Large Input) ---
+# --- الواجهة المهنية المحدثة (تم إصلاح خطأ القفلة وتكبير الخانة) ---
 
 DOWNLOAD_HTML = """
 <!DOCTYPE html>
@@ -55,25 +55,24 @@ DOWNLOAD_HTML = """
         .header-section h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; }
         .header-section p { color: #777; font-size: 1rem; margin-bottom: 40px; }
 
-        /* خانة الرابط الكبيرة (Large Input Area) */
+        /* خانة الرابط العملاقة والمريحة */
         input { 
             width: 95%; 
-            padding: 25px; /* تم التكبير هنا */
-            border-radius: 18px; 
+            padding: 30px; /* تم التكبير لراحة أكبر */
+            border-radius: 20px; 
             border: 2px solid #222; 
             background: #0c0c0c; 
             color: var(--primary-color); 
-            font-size: 1.25rem; /* تم تكبير الخط */
+            font-size: 1.3rem; 
             text-align: center; 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             outline: none; 
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
         }
         input:focus { 
             border-color: var(--primary-color); 
-            background: #111;
-            box-shadow: 0 0 25px rgba(0, 242, 234, 0.15), inset 0 2px 10px rgba(0,0,0,0.5); 
+            box-shadow: 0 0 25px rgba(0, 242, 234, 0.15); 
         }
 
         .btn-download { 
@@ -89,7 +88,7 @@ DOWNLOAD_HTML = """
             transition: 0.3s;
             box-shadow: 0 8px 20px rgba(255, 0, 80, 0.2);
         }
-        .btn-download:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 12px 30px rgba(255, 0, 80, 0.4); }
+        .btn-download:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
         #result-area { display: none; margin-top: 40px; border-top: 1px solid #1a1a1a; padding-top: 35px; width: 100%; }
         .video-thumbnail { width: 100%; border-radius: 24px; border: 1px solid #222; margin-bottom: 25px; }
@@ -115,7 +114,7 @@ DOWNLOAD_HTML = """
                 <i class="fa-brands fa-tiktok text-4xl" style="color: var(--accent-color);"></i>
             </div>
             <h1>Wizzy Sovereign</h1>
-            <p>تحميل الفيديوهات من تيك توك بجودة عالية وبدون علامة مائية</p>
+            <p>تحميل فيديوهات تيك توك بجودة عالية وبدون علامة مائية</p>
         </div>
 
         <input type="text" id="videoUrl" placeholder="الصق رابط الفيديو هنا">
@@ -144,7 +143,7 @@ DOWNLOAD_HTML = """
             <a href="#" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
             <a href="#" class="social-icon"><i class="fa-brands fa-github"></i></a>
         </div>
-        <p class="text-xs uppercase tracking-widest mb-2">Designed by Wizzy Sovereign</p>
+        <p class="text-xs uppercase tracking-widest mb-2">Developed by Wizzy Sovereign</p>
         <p class="text-[10px] font-bold">جميع الحقوق محفوظة © 2026</p>
     </div>
 
@@ -191,3 +190,40 @@ DOWNLOAD_HTML = """
     </script>
 </body>
 </html>
+"""
+
+# --- منطق الخادم (Backend Logic) ---
+
+@app.route('/')
+def home():
+    return DOWNLOAD_HTML
+
+@app.route('/api/process', methods=['POST'])
+def process_request():
+    video_url = request.json.get('url', '')
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        }
+        r = requests.post("https://tikwm.com/api/", data={"url": video_url, "hd": "1"}, headers=headers).json()
+        if r.get('code') == 0:
+            return jsonify({"status": "success", "data": r['data']})
+        return jsonify({"status": "error"})
+    except:
+        return jsonify({"status": "error"})
+
+@app.route('/proxy_file')
+def proxy_file():
+    target_url = request.args.get('url')
+    filename = request.args.get('filename', 'download.mp4')
+    req = requests.get(target_url, stream=True)
+    return Response(
+        req.iter_content(chunk_size=1024*64),
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}",
+            "Content-Type": "application/octet-stream"
+        }
+    )
+
+if __name__ == "__main__":
+    app.run()
