@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify, Response
 import requests
 
 app = Flask(__name__)
-app.secret_key = "WIZZY_SOVEREIGN_PROFESSIONAL_2026"
+app.secret_key = "WIZZY_SOVEREIGN_PRO_V2_2026"
 
-# --- الواجهة المهنية (Professional UI) ---
+# --- الواجهة المهنية المحدثة (Professional UI - Large Input) ---
 
 DOWNLOAD_HTML = """
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ DOWNLOAD_HTML = """
         :root { 
             --primary-color: #00f2ea; 
             --accent-color: #ff0050; 
-            --bg-dark: #0a0a0a;
+            --bg-dark: #070707;
         }
 
         body { 
@@ -39,116 +39,126 @@ DOWNLOAD_HTML = """
             min-height: 100vh;
         }
 
-        /* حاوية التصميم الرئيسية - احترافية وبسيطة */
         .main-container { 
-            background: rgba(20, 20, 20, 0.6); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px; 
+            background: rgba(15, 15, 15, 0.7); 
+            backdrop-filter: blur(25px); 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px; 
             width: 100%; 
-            max-width: 600px; 
-            padding: 40px 20px;
-            margin-top: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 650px; 
+            padding: 50px 25px;
+            margin-top: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
             text-align: center;
         }
 
-        .header-section { margin-bottom: 30px; }
-        .header-section h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 8px; color: #fff; }
-        .header-section p { color: #888; font-size: 0.9rem; font-weight: 400; }
+        .header-section h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; }
+        .header-section p { color: #777; font-size: 1rem; margin-bottom: 40px; }
 
+        /* خانة الرابط الكبيرة (Large Input Area) */
         input { 
-            width: 90%; padding: 18px; border-radius: 14px; border: 1px solid #333; 
-            background: #111; color: var(--primary-color); font-size: 1rem; text-align: center; 
-            margin-bottom: 20px; outline: none; transition: 0.3s;
+            width: 95%; 
+            padding: 25px; /* تم التكبير هنا */
+            border-radius: 18px; 
+            border: 2px solid #222; 
+            background: #0c0c0c; 
+            color: var(--primary-color); 
+            font-size: 1.25rem; /* تم تكبير الخط */
+            text-align: center; 
+            margin-bottom: 25px; 
+            outline: none; 
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
         }
-        input:focus { border-color: var(--primary-color); background: #151515; }
+        input:focus { 
+            border-color: var(--primary-color); 
+            background: #111;
+            box-shadow: 0 0 25px rgba(0, 242, 234, 0.15), inset 0 2px 10px rgba(0,0,0,0.5); 
+        }
 
-        /* زر التحميل الرسمي */
         .btn-download { 
-            width: 90%; padding: 18px; border-radius: 14px; border: none; 
-            background: linear-gradient(90deg, var(--accent-color), #e60045); 
-            color: #fff; font-size: 1.1rem; font-weight: 700; cursor: pointer; 
-            transition: 0.3s ease; box-shadow: 0 4px 15px rgba(255, 0, 80, 0.2);
+            width: 95%; 
+            padding: 22px; 
+            border-radius: 18px; 
+            border: none; 
+            background: linear-gradient(90deg, var(--accent-color), #d60043); 
+            color: #fff; 
+            font-size: 1.3rem; 
+            font-weight: 900; 
+            cursor: pointer; 
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(255, 0, 80, 0.2);
         }
-        .btn-download:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 6px 20px rgba(255, 0, 80, 0.3); }
+        .btn-download:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 12px 30px rgba(255, 0, 80, 0.4); }
 
-        /* منطقة النتائج */
-        #result-area { display: none; margin-top: 35px; border-top: 1px solid #222; padding-top: 30px; width: 100%; }
-        .video-thumbnail { width: 100%; border-radius: 18px; border: 1px solid #333; margin-bottom: 20px; }
+        #result-area { display: none; margin-top: 40px; border-top: 1px solid #1a1a1a; padding-top: 35px; width: 100%; }
+        .video-thumbnail { width: 100%; border-radius: 24px; border: 1px solid #222; margin-bottom: 25px; }
 
         .download-option {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 15px; border-radius: 12px; font-weight: 700; text-decoration: none;
-            transition: 0.2s; margin: 10px 0; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            padding: 18px; border-radius: 15px; font-weight: 900; text-decoration: none;
+            transition: 0.2s; margin: 12px 0; font-size: 1.1rem;
         }
         .video-hd { background: var(--primary-color); color: #000; }
         .audio-mp3 { background: #fff; color: #000; }
-        .download-option:hover { opacity: 0.9; transform: scale(1.01); }
 
-        /* أيقونات التواصل الاجتماعي بحجم مناسب */
-        .social-icon { font-size: 1.2rem; color: #666; transition: 0.3s; }
-        .social-icon:hover { color: #fff; }
-
-        /* الفوتر المهني */
-        .footer-credits {
-            margin-top: auto; padding: 40px 20px; text-align: center; color: #444; font-size: 0.8rem;
-        }
-        .wizzy-brand { color: #888; font-weight: 700; text-decoration: none; }
+        .footer-credits { margin-top: auto; padding: 50px 20px; text-align: center; color: #333; }
+        .social-icon { font-size: 1.4rem; color: #444; margin: 0 10px; transition: 0.3s; }
+        .social-icon:hover { color: var(--primary-color); }
     </style>
 </head>
 <body>
 
     <div class="main-container">
         <div class="header-section">
-            <div class="flex justify-center mb-4">
-                <i class="fa-brands fa-tiktok text-3xl" style="color: var(--accent-color);"></i>
+            <div class="flex justify-center mb-6">
+                <i class="fa-brands fa-tiktok text-4xl" style="color: var(--accent-color);"></i>
             </div>
             <h1>Wizzy Sovereign</h1>
-            <p>أداة مهنية لتحميل فيديوهات تيك توك بجودة عالية وبدون علامة مائية</p>
+            <p>تحميل الفيديوهات من تيك توك بجودة عالية وبدون علامة مائية</p>
         </div>
 
-        <input type="text" id="videoUrl" placeholder="الصق رابط فيديو تيك توك هنا">
+        <input type="text" id="videoUrl" placeholder="الصق رابط الفيديو هنا">
         <button onclick="handleDownload()" class="btn-download">
-            <i class="fa-solid fa-download ml-2"></i> بدء التحميل
+            <i class="fa-solid fa-circle-down ml-2"></i> بدء التحميل
         </button>
 
         <div id="result-area">
             <img id="videoPreview" class="video-thumbnail" src="">
-            <div id="videoTitle" class="text-sm text-gray-400 mb-4 px-4"></div>
+            <div id="videoTitle" class="text-md text-gray-500 mb-6 px-6 font-bold"></div>
             
-            <div class="px-4">
+            <div class="px-6">
                 <a id="hdDownload" class="download-option video-hd" href="#">
-                    <i class="fa-solid fa-video"></i> تحميل فيديو (MP4 HD)
+                    <i class="fa-solid fa-file-video"></i> تحميل الفيديو (MP4 HD)
                 </a>
                 <a id="mp3Download" class="download-option audio-mp3" href="#">
-                    <i class="fa-solid fa-music"></i> تحميل الملف الصوتي (MP3)
+                    <i class="fa-solid fa-music"></i> تحميل الصوت (MP3)
                 </a>
             </div>
         </div>
     </div>
 
     <div class="footer-credits">
-        <p class="mb-4">جميع الحقوق محفوظة © 2026</p>
-        <div class="flex justify-center gap-6 mb-6">
-            <a href="#" class="social-icon"><i class="fa-brands fa-github"></i></a>
+        <div class="flex justify-center mb-6">
             <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
             <a href="#" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-github"></i></a>
         </div>
-        <p>تم التطوير بواسطة <a href="#" class="wizzy-brand">Wizzy Sovereign System</a></p>
+        <p class="text-xs uppercase tracking-widest mb-2">Designed by Wizzy Sovereign</p>
+        <p class="text-[10px] font-bold">جميع الحقوق محفوظة © 2026</p>
     </div>
 
     <script>
         async function handleDownload() {
             const url = document.getElementById('videoUrl').value;
-            if(!url) return Swal.fire({ icon: 'info', title: 'تنبيه', text: 'يرجى إدخال رابط صالح', background: '#111', color: '#fff' });
+            if(!url) return Swal.fire({ icon: 'info', title: 'تنبيه', text: 'يرجى إدخال الرابط أولاً', background: '#0a0a0a', color: '#fff' });
 
             Swal.fire({ 
                 title: 'جاري المعالجة', 
-                text: 'يرجى الانتظار قليلاً...',
+                text: 'يرجى الانتظار ثواني...',
                 allowOutsideClick: false, 
                 didOpen: () => Swal.showLoading(), 
-                background: '#111', 
+                background: '#0a0a0a', 
                 color: '#fff' 
             });
 
@@ -166,59 +176,18 @@ DOWNLOAD_HTML = """
                     document.getElementById('videoPreview').src = data.cover;
                     document.getElementById('videoTitle').innerText = data.title || "فيديو تيك توك";
                     
-                    document.getElementById('hdDownload').href = `/proxy_file?url=${encodeURIComponent(data.hdplay || data.play)}&filename=video.mp4`;
-                    document.getElementById('mp3Download').href = `/proxy_file?url=${encodeURIComponent(data.music)}&filename=audio.mp3`;
+                    document.getElementById('hdDownload').href = `/proxy_file?url=${encodeURIComponent(data.hdplay || data.play)}&filename=Wizzy_Sovereign.mp4`;
+                    document.getElementById('mp3Download').href = `/proxy_file?url=${encodeURIComponent(data.music)}&filename=Wizzy_Audio.mp3`;
                     
                     Swal.close();
+                    window.scrollTo({ top: document.getElementById('result-area').offsetTop - 20, behavior: 'smooth' });
                 } else {
-                    Swal.fire({ icon: 'error', title: 'خطأ', text: 'فشل جلب بيانات الفيديو، تأكد من صحة الرابط', background: '#111', color: '#fff' });
+                    Swal.fire({ icon: 'error', title: 'خطأ', text: 'الرابط غير صالح أو الفيديو محمي', background: '#0a0a0a', color: '#fff' });
                 }
             } catch(e) {
-                Swal.fire({ icon: 'error', title: 'خطأ تقني', text: 'حدث خطأ أثناء الاتصال بالخادم', background: '#111', color: '#fff' });
+                Swal.fire({ icon: 'error', title: 'خطأ فني', text: 'حدث خطأ في الخادم', background: '#0a0a0a', color: '#fff' });
             }
         }
     </script>
 </body>
 </html>
-"""
-
-# --- منطق الخادم الاحترافي (Backend Logic) ---
-
-@app.route('/')
-def home():
-    return DOWNLOAD_HTML
-
-@app.route('/api/process', methods=['POST'])
-def process_request():
-    video_url = request.json.get('url', '')
-    try:
-        # استخدام هيدرز احترافية لتجنب الحظر
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9"
-        }
-        r = requests.post("https://tikwm.com/api/", data={"url": video_url, "hd": "1"}, headers=headers).json()
-        if r.get('code') == 0:
-            return jsonify({"status": "success", "data": r['data']})
-        return jsonify({"status": "error"})
-    except:
-        return jsonify({"status": "error"})
-
-@app.route('/proxy_file')
-def proxy_file():
-    target_url = request.args.get('url')
-    filename = request.args.get('filename', 'download.mp4')
-    
-    headers = {"User-Agent": "Mozilla/5.0"}
-    req = requests.get(target_url, headers=headers, stream=True)
-    
-    return Response(
-        req.iter_content(chunk_size=1024*64),
-        headers={
-            "Content-Disposition": f"attachment; filename={filename}",
-            "Content-Type": "application/octet-stream"
-        }
-    )
-
-if __name__ == "__main__":
-    app.run()
